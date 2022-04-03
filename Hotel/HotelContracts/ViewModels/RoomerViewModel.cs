@@ -18,6 +18,8 @@ namespace HotelContracts.ViewModels
         [DisplayName("Дата бронирования")]
         public DateTime DateBooking { get; set; }
 
+        public int RoomId { get; set; }
+
         public int HeadwaiterId { get; set; }
     }
 }

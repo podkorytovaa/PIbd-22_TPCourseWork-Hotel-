@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Гостиница 'Принцесса на горошине'" Height="450" Width="800">
     <Grid>
-
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem x:Name="MenuItemLanches" Header="Обеды" ></MenuItem>
+            <MenuItem x:Name="MenuItemLunchSeminar" Header="Привязка обедов" ></MenuItem>
+            <MenuItem x:Name="MenuItemRooms" Header="Номера" ></MenuItem>
+            <MenuItem x:Name="MenuItemRoomers" Header="Постояльцы"></MenuItem>
+            <MenuItem x:Name="MenuItemSeminarsList" Header="Список семинаров"></MenuItem>
+            <MenuItem x:Name="MenuItemReport" Header="Отчёт по обедам" ></MenuItem>
+        </Menu>
     </Grid>
 </Window>
