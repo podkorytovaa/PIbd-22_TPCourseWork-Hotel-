@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Обеды" Height="450" Width="820">
+        Title="Обеды" Height="450" Width="820" Loaded="LunchesWindow_Load">
     <Grid>
         <DataGrid x:Name="DataGridLunches" HorizontalAlignment="Left" Height="420" Margin="0,0,0,0" VerticalAlignment="Top" Width="700" AutoGenerateColumns="False" CanUserAddRows="false" CanUserReorderColumns="False" >
             <DataGrid.Columns>
@@ -16,7 +16,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button x:Name="ButtonAdd" Content="Создать" HorizontalAlignment="Left" Margin="710,40,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="ButtonAdd" Content="Создать" HorizontalAlignment="Left" Margin="710,40,0,0" VerticalAlignment="Top" Width="100" Click="ButtonCreate_Click"/>
         <Button x:Name="ButtonUpdate" Content="Изменить" HorizontalAlignment="Left" Margin="710,100,0,0" VerticalAlignment="Top" Width="100"/>
         <Button x:Name="ButtonDelete" Content="Удалить" HorizontalAlignment="Left" Margin="710,160,0,0" VerticalAlignment="Top" Width="100"/>
         <Button x:Name="ButtonRefresh" Content="Обновить" HorizontalAlignment="Left" Margin="710,220,0,0" VerticalAlignment="Top" Width="100"/>

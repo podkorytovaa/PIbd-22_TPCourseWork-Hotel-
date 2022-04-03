@@ -23,5 +23,15 @@ namespace HotelHeadwaiterView
         {
             InitializeComponent();
         }
+
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

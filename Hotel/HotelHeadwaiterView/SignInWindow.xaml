@@ -12,8 +12,8 @@
             <TextBox x:Name="TextBoxLogin" Height="25"/>
             <Label Content="Пароль:"/>
             <TextBox x:Name="TextBoxPassword" Height="25"/>
-            <Button Content="Войти" Margin="0, 20, 0, 0"/>
-            <Button Content="Зарегистрироваться" Margin="0, 20, 0, 0"/>
+            <Button Content="Войти" Margin="0, 20, 0, 0" Click="SignIn_Click"/>
+            <Button Content="Зарегистрироваться" Margin="0, 20, 0, 0" Click="ToSignUp_Click"/>
         </StackPanel>
     </Grid>
 </Window>

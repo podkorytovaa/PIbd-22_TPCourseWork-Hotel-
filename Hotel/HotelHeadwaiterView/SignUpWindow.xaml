@@ -13,10 +13,10 @@
             <Label Content="Пароль" />
             <TextBox x:Name="TextBoxPassword"/>
             <Label Content="ФИО"/>
-            <TextBox x:Name="TextBoxName"/>
+            <TextBox x:Name="TextBoxFullName"/>
             <Label Content="Номер телефона" />
             <TextBox x:Name="TextBoxPhone"/>
-            <Button Content="Зарегистрироваться" Margin="0,20,0,0"/>
+            <Button Content="Зарегистрироваться" Margin="0,20,0,0" Click="SignUp_Click"/>
         </StackPanel>
     </Grid>
 </Window>
