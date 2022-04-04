@@ -12,8 +12,8 @@ namespace HotelContracts.BusinessLogicsContracts
     {
         List<ReportRoomSeminarsViewModel> GetRoomSeminars(List<RoomViewModel> rooms);
         List<ReportLunchesViewModel> GetLunches(ReportBindingModel model);
-        void SaveRoomSeminarsToWord(ReportBindingModel model);
-        void SaveRoomSeminarsToExcel(ReportBindingModel model);
+        void SaveRoomSeminarsToWord(ReportRoomBindingModel model);
+        void SaveRoomSeminarsToExcel(ReportRoomBindingModel model);
         void SaveLunchesToPdf(ReportBindingModel model);
     }
 }

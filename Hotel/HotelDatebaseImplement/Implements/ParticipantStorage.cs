@@ -83,7 +83,7 @@ namespace HotelDatebaseImplement.Implements
         {
             participant.FullName = model.FullName;
             participant.Status = model.Status;
-            participant.SeminarId = model.SeminarId; //?
+            participant.SeminarId = model.SeminarId; //
             participant.OrganizerId = model.OrganizerId;
             return participant;
         }
@@ -95,7 +95,7 @@ namespace HotelDatebaseImplement.Implements
                 Id = participant.Id,
                 FullName = participant.FullName,
                 Status = participant.Status,
-                SeminarId = participant.SeminarId, //?
+                SeminarId = participant.SeminarId, //
                 OrganizerId = participant.OrganizerId
             };
         }

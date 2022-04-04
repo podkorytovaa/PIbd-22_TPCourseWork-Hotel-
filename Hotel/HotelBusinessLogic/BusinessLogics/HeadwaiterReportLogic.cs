@@ -9,6 +9,7 @@ using HotelContracts.StoragesContracts;
 using HotelContracts.ViewModels;
 using HotelContracts.BusinessLogicsContracts;
 using HotelBusinessLogic.OfficePackage;
+using HotelBusinessLogic.OfficePackage.HelperModels;
 
 namespace HotelBusinessLogic.BusinessLogics
 {
@@ -18,6 +19,7 @@ namespace HotelBusinessLogic.BusinessLogics
         private readonly ISeminarStorage _seminarStorage;
         private readonly ILunchStorage _lunchStorage;
         private readonly IRoomStorage _roomStorage;
+
         private readonly HeadwaiterAbstractSaveToWord _saveToWord;
         private readonly HeadwaiterAbstractSaveToExcel _saveToExcel;
         private readonly HeadwaiterAbstractSaveToPdf _saveToPdf;
@@ -34,26 +36,112 @@ namespace HotelBusinessLogic.BusinessLogics
             _saveToPdf = saveToPdf;
         }
 
-        public List<ReportRoomSeminarsViewModel> GetRoomSeminars(List<RoomViewModel> rooms)
+        // Получение списка семинаров по номерам
+        public List<ReportRoomSeminarsViewModel> GetRoomSeminars(List<RoomViewModel> rooms)//
         {
-            return null;
+            var list = new List<ReportRoomSeminarsViewModel>();
+
+            foreach (var room in rooms)
+            {
+                var record = new ReportRoomSeminarsViewModel
+                {
+                    RoomNumber = room.Number,
+                    LunchName = "",
+                    Seminars = new List<Tuple<string>>()
+                };
+                foreach (var rl in room.RoomLunches)
+                {
+                    var model = _lunchStorage.GetElement(new LunchBindingModel { Id = rl.Key });
+                    foreach (var seminar in model.LunchSeminars)
+                    {
+                        record.Seminars.Add(new Tuple<string>(seminar.Value));
+                        record.LunchName = model.Name;
+                    }
+                }
+                list.Add(record);
+            }
+            return list;
         }
 
-        public List<ReportLunchesViewModel> GetLunches(ReportBindingModel model)
+        // Получение списка обедов с указанием семинара и номера за определенный период
+        public List<ReportLunchesViewModel> GetLunches(ReportBindingModel model)//
         {
-            return null;
+            var list = new List<ReportLunchesViewModel>();
+            var conferences = _conferenceStorage.GetFilteredList(new ConferenceBindingModel
+            {
+                DateFrom = model.DateFrom,
+                DateTo = model.DateTo
+            });
+            foreach (var conference in conferences)
+            {
+                foreach (var cr in conference.ConferenceRooms)
+                {
+                    var room = _roomStorage.GetElement(new RoomBindingModel
+                    {
+                        Id = cr.Key
+                    });
+                    foreach (var rl in room.RoomLunches)
+                    {
+                        var lunch = _lunchStorage.GetElement(new LunchBindingModel
+                        {
+                            Id = rl.Key
+                        });
+                        foreach (var ls in lunch.LunchSeminars)
+                        {
+                            var seminar = _seminarStorage.GetElement(new SeminarBindingModel
+                            {
+                                Id = ls.Key
+                            });
+                            var record = new ReportLunchesViewModel
+                            {
+                                Date = conference.DataOf,
+                                Name = lunch.Name,
+                                Dish = lunch.Dish,
+                                Drink = lunch.Drink,
+                                Seminar = seminar.Name,
+                                Room = room.Number
+                            };
+                            list.Add(record);
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
-        public void SaveRoomSeminarsToWord(ReportBindingModel model)
+        // Сохранение семинаров по номерам в файл-Word
+        public void SaveRoomSeminarsToWord(ReportRoomBindingModel model)//
         {
+            _saveToWord.CreateDoc(new HeadwaiterWordInfo
+            {
+                FileName = model.FileName,
+                Title = "Список семинаров по выбранным номерам",
+                RoomSeminars = GetRoomSeminars(model.Rooms)
+            });
         }
 
-        public void SaveRoomSeminarsToExcel(ReportBindingModel model)
+        // Сохранение семинаров по номерам в файл-Excel
+        public void SaveRoomSeminarsToExcel(ReportRoomBindingModel model)//
         {
+            _saveToExcel.CreateReport(new HeadwaiterExcelInfo
+            {
+                FileName = model.FileName,
+                Title = "Список семинаров по выбранным номерам",
+                RoomSeminars = GetRoomSeminars(model.Rooms)
+            });
         }
 
-        public void SaveLunchesToPdf(ReportBindingModel model)
+        // Сохранение  обедов с указанием семинара и номера заказов в файл-Pdf
+        public void SaveLunchesToPdf(ReportBindingModel model)//
         {
+            _saveToPdf.CreateDoc(new HeadwaiterPdfInfo
+            {
+                FileName = model.FileName,
+                Title = "Список обедов",
+                DateFrom = model.DateFrom.Value,
+                DateTo = model.DateTo.Value,
+                Lunches = GetLunches(model)
+            });
         }
     }
 }

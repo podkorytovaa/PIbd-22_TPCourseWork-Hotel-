@@ -14,9 +14,5 @@ namespace HotelContracts.ViewModels
         public string SubjectArea { get; set; }
 
         public int OrganizerId { get; set; }
-
-        public Dictionary<int, string> SeminarConferences { get; set; }
-
-        public Dictionary<int, string> SeminarParticipants { get; set; }
     }
 }

@@ -6,13 +6,13 @@ namespace HotelContracts.BusinessLogicsContracts
 {
     public interface IOrganizerReportLogic
     {
-        List<ReportConferenceLunchesViewModel> GetConferenceLunches(List<ConferenceViewModel> selectedConferences);
+        List<ReportConferenceLunchesViewModel> GetConferenceLunches(List<ConferenceViewModel> conferences);
 
         List<ReportConferencesViewModel> GetConferences(ReportBindingModel model);
 
-        void SaveConferenceLunchesToWord(ReportBindingModel model);
+        void SaveConferenceLunchesToWord(ReportConferenceBindingModel model);
 
-        void SaveConferenceLunchesToExcel(ReportBindingModel model);
+        void SaveConferenceLunchesToExcel(ReportConferenceBindingModel model);
 
         void SaveConferencesToPdf(ReportBindingModel model);
     }

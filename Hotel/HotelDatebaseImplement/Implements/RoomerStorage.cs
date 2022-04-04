@@ -120,7 +120,7 @@ namespace HotelDatebaseImplement.Implements
             roomer.PhoneNumber = model.PhoneNumber;
             roomer.DateBooking = model.DateBooking;
             roomer.HeadwaiterId = model.HeadwaiterId;
-            roomer.RoomId = model.RoomId;
+            roomer.RoomId = model.RoomId; //
             return roomer;
         }
 
@@ -133,7 +133,7 @@ namespace HotelDatebaseImplement.Implements
                 PhoneNumber = roomer.PhoneNumber,
                 DateBooking = roomer.DateBooking,
                 HeadwaiterId = roomer.HeadwaiterId,
-                RoomId = roomer.RoomId
+                RoomId = roomer.RoomId //
             };
         }
     }
