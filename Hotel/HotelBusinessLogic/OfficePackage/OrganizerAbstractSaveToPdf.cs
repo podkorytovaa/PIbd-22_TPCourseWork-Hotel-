@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using HotelBusinessLogic.OfficePackage.HelperEnums;
 using HotelBusinessLogic.OfficePackage.HelperModels;
 
 namespace HotelBusinessLogic.OfficePackage
 {
-    public abstract class HeadwaiterAbstractSaveToPdf
+    public abstract class OrganizerAbstractSaveToPdf
     {
-        public void CreateDoc(HeadwaiterPdfInfo info)
+        public void CreateDoc(OrganizerPdfInfo info)
         {
             CreatePdf(info);
 
@@ -22,20 +18,20 @@ namespace HotelBusinessLogic.OfficePackage
 
             CreateParagraph(new PdfParagraph { Text = $"с { info.DateFrom.ToShortDateString() } по { info.DateTo.ToShortDateString() }", Style = "Normal" });
 
-            CreateTable(new List<string> { "3cm", "6cm", "3cm", "3cm", "6cm", "3cm" });
+            CreateTable(new List<string> { "3cm", "6cm", "3cm", "6cm", "6cm"});
 
             CreateRow(new PdfRowParameters
             {
-                Texts = new List<string> { "Дата", "Обед", "Блюдо", "Напиток", "Семинар", "Номер" },
+                Texts = new List<string> { "Дата проведения", "Конференция", "Количество номеров", "Семинар", "Обед" },
                 Style = "NormalTitle",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
 
-            foreach (var lunch in info.Lunches)
+            foreach (var conference in info.Conferences)
             {
                 CreateRow(new PdfRowParameters
                 {
-                    Texts = new List<string> { lunch.Date.ToShortDateString(), lunch.Name, lunch.Dish, lunch.Drink, lunch.Seminar, lunch.Room },
+                    Texts = new List<string> { conference.DateOf.ToShortDateString(), conference.Name, conference.NumberOfRooms.ToString(), conference.Seminar, conference.Lunch },
                     Style = "Normal",
                     ParagraphAlignment = PdfParagraphAlignmentType.Left
                 });
@@ -45,7 +41,7 @@ namespace HotelBusinessLogic.OfficePackage
         }
 
         // Создание doc-файла
-        protected abstract void CreatePdf(HeadwaiterPdfInfo info);
+        protected abstract void CreatePdf(OrganizerPdfInfo info);
 
         // Создание параграфа с текстом
         protected abstract void CreateParagraph(PdfParagraph paragraph);
@@ -57,6 +53,6 @@ namespace HotelBusinessLogic.OfficePackage
         protected abstract void CreateRow(PdfRowParameters rowParameters);
 
         // Сохранение файла
-        protected abstract void SavePdf(HeadwaiterPdfInfo info);
+        protected abstract void SavePdf(OrganizerPdfInfo info);
     }
 }

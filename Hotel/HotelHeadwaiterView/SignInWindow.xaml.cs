@@ -64,8 +64,8 @@ namespace HotelHeadwaiterView
             {
                 App.Headwaiter = _headwaiter;
                 var form = App.Container.Resolve<MainWindow>();
-                form.Show();
                 Close();
+                form.ShowDialog();
             }
             else
             {

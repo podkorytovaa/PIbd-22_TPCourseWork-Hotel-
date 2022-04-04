@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HotelContracts.ViewModels;
 
 namespace HotelBusinessLogic.OfficePackage.HelperModels
 {
-    public class HeadwaiterExcelInfo
+    public class OrganizerPdfInfo
     {
         public string FileName { get; set; }
+
         public string Title { get; set; }
-        public List<ReportRoomSeminarsViewModel> RoomSeminars { get; set; }
+
+        public DateTime DateFrom { get; set; }
+
+        public DateTime DateTo { get; set; }
+
+        public List<ReportConferencesViewModel> Conferences { get; set; }
     }
 }

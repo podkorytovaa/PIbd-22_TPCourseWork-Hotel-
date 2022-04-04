@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HotelBusinessLogic.OfficePackage.HelperEnums;
+﻿using HotelBusinessLogic.OfficePackage.HelperEnums;
 using HotelBusinessLogic.OfficePackage.HelperModels;
 
 namespace HotelBusinessLogic.OfficePackage
 {
-    public abstract class HeadwaiterAbstractSaveToExcel
+    public abstract class OrganizerAbstractSaveToExcel
     {
 		// Создание отчета номер: семинар
-		public void CreateReport(HeadwaiterExcelInfo info)
+		public void CreateReport(OrganizerExcelInfo info)
 		{
 			CreateExcel(info);
 
@@ -30,13 +25,13 @@ namespace HotelBusinessLogic.OfficePackage
 			});
 
 			uint rowIndex = 2;
-			foreach (var rs in info.RoomSeminars)
+			foreach (var cl in info.ConferenceLunches)
 			{
 				InsertCellInWorksheet(new ExcelCellParameters
 				{
 					ColumnName = "A",
 					RowIndex = rowIndex,
-					Text = rs.RoomNumber,
+					Text = cl.ConferenceName,
 					StyleInfo = ExcelStyleInfoType.Text
 				});
 				MergeCells(new ExcelMergeParameters
@@ -45,13 +40,13 @@ namespace HotelBusinessLogic.OfficePackage
 					CellToName = "B" + rowIndex
 				});
 
-				foreach (var seminar in rs.Seminars)
+				foreach (var lunch in cl.Lunches)
 				{
 					InsertCellInWorksheet(new ExcelCellParameters
 					{
 						ColumnName = "C",
 						RowIndex = rowIndex,
-						Text = seminar.Item1,
+						Text = lunch.Item1,
 						StyleInfo = ExcelStyleInfoType.TextWithBroder
 					});
 					rowIndex++;
@@ -63,7 +58,7 @@ namespace HotelBusinessLogic.OfficePackage
 		}
 
 		// Создание excel-файла
-		protected abstract void CreateExcel(HeadwaiterExcelInfo info);
+		protected abstract void CreateExcel(OrganizerExcelInfo info);
 
 		// Добавляем новую ячейку в лист
 		protected abstract void InsertCellInWorksheet(ExcelCellParameters excelParams);
@@ -72,6 +67,6 @@ namespace HotelBusinessLogic.OfficePackage
 		protected abstract void MergeCells(ExcelMergeParameters excelParams);
 
 		// Сохранение файла
-		protected abstract void SaveExcel(HeadwaiterExcelInfo info);
+		protected abstract void SaveExcel(OrganizerExcelInfo info);
 	}
 }

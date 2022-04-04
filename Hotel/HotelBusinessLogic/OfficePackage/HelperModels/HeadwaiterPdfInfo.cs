@@ -13,6 +13,6 @@ namespace HotelBusinessLogic.OfficePackage.HelperModels
         public string Title { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
-        //public List<ReportLunchViewModel> Lunches { get; set; }
+        public List<ReportLunchesViewModel> Lunches { get; set; }
     }
 }

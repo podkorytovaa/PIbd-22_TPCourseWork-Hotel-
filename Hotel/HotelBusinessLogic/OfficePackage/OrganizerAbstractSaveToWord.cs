@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using HotelBusinessLogic.OfficePackage.HelperEnums;
 using HotelBusinessLogic.OfficePackage.HelperModels;
 
 namespace HotelBusinessLogic.OfficePackage
 {
-    public abstract class HeadwaiterAbstractSaveToWord
+    public abstract class OrganizerAbstractSaveToWord
     {
-        public void CreateDoc(HeadwaiterWordInfo info)
+        public void CreateDoc(OrganizerWordInfo info)
         {
             CreateWord(info);
 
@@ -24,20 +20,20 @@ namespace HotelBusinessLogic.OfficePackage
                 }
             });
 
-            foreach (var rs in info.RoomSeminars)
+            foreach (var cl in info.ConferenceLunches)
             {
-                var seminars = new List<(string, WordTextProperties)>();
-                seminars.Add((rs.RoomNumber + ": ", new WordTextProperties { Bold = true, Size = "24", })) ;
+                var lunches = new List<(string, WordTextProperties)>();
+                lunches.Add((cl.ConferenceName + ": ", new WordTextProperties { Bold = true, Size = "24", }));
     
-                foreach (var s in rs.Seminars)
+                foreach (var l in cl.Lunches)
                 {
-                    seminars.Add((s.Item1 + "; ", new WordTextProperties { Size = "24", }));
+                    lunches.Add((l.Item1 + "; ", new WordTextProperties { Size = "24", }));
 
                 }
 
                 CreateParagraph(new WordParagraph
                 {
-                    Texts = seminars,
+                    Texts = lunches,
                     TextProperties = new WordTextProperties
                     {
                         Size = "24",
@@ -50,12 +46,12 @@ namespace HotelBusinessLogic.OfficePackage
         }
 
         // Создание doc-файла
-        protected abstract void CreateWord(HeadwaiterWordInfo info);
+        protected abstract void CreateWord(OrganizerWordInfo info);
 
         // Создание абзаца с текстом
         protected abstract void CreateParagraph(WordParagraph paragraph);
 
         // Сохранение файла
-        protected abstract void SaveWord(HeadwaiterWordInfo info);
+        protected abstract void SaveWord(OrganizerWordInfo info);
     }
 }
