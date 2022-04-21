@@ -37,7 +37,7 @@ namespace HotelDatebaseImplement.Implements
                 .ThenInclude(rec => rec.Seminar)
                 .Include(rec => rec.ConferenceRooms)
                 .ThenInclude(rec => rec.Room)
-                .Where(rec => rec.Name.Contains(model.Name) || (rec.DataOf >= model.DateFrom && rec.DataOf <= model.DateTo))
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DataOf.Date == model.DataOf.Date) || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DataOf.Date >= model.DateFrom.Value.Date && rec.DataOf.Date <= model.DateTo.Value.Date) || (rec.OrganizerId == model.OrganizerId))
                 .ToList()
                 .Select(CreateModel)
                 .ToList();
