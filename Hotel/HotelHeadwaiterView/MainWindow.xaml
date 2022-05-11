@@ -5,15 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Гостиница 'Принцесса на горошине'" Height="450" Width="800">
+        Title="Гостиница 'Принцесса на горошине'" Height="460" Width="760">
     <Grid>
         <Menu Height="25" VerticalAlignment="Top">
-            <MenuItem x:Name="MenuItemLanches" Header="Обеды" ></MenuItem>
-            <MenuItem x:Name="MenuItemLunchSeminar" Header="Привязка обедов" ></MenuItem>
-            <MenuItem x:Name="MenuItemRooms" Header="Номера" ></MenuItem>
-            <MenuItem x:Name="MenuItemRoomers" Header="Постояльцы"></MenuItem>
-            <MenuItem x:Name="MenuItemSeminarsList" Header="Список семинаров"></MenuItem>
-            <MenuItem x:Name="MenuItemReport" Header="Отчёт по обедам" ></MenuItem>
+            <MenuItem x:Name="MenuItemLanches" Header="Обеды" Click="MenuItemLanches_Click"></MenuItem>
+            <MenuItem x:Name="MenuItemLunchSeminar" Header="Привязка обедов" Click="MenuItemLunchSeminar_Click"></MenuItem>
+            <MenuItem x:Name="MenuItemRooms" Header="Номера" Click="MenuItemRooms_Click"></MenuItem>
+            <MenuItem x:Name="MenuItemRoomers" Header="Постояльцы" Click="MenuItemRoomers_Click"></MenuItem>
+            <MenuItem x:Name="MenuItemSeminarsList" Header="Список семинаров" Click="MenuItemSeminarsList_Click"></MenuItem>
+            <MenuItem x:Name="MenuItemReport" Header="Отчёт по обедам" Click="MenuItemReport_Click"></MenuItem>
+            <MenuItem x:Name="MenuItemExit" Header="Выход" Click="MenuItemExit_Click" Margin="150,0,0,0"></MenuItem>
         </Menu>
+        <Image VerticalAlignment="Top" Name="logo" Source="Images/логотип.PNG" Height="411" Margin="0,25,0,0"></Image>
     </Grid>
 </Window>

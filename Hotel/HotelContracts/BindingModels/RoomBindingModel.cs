@@ -12,7 +12,8 @@ namespace HotelContracts.BindingModels
 
         public int HeadwaiterId { get; set; }
 
-        public int RoomerID { get; set; }
+        //public int RoomerID { get; set; }
+        public Dictionary<int, string> Roomers { get; set; }
 
         public Dictionary<int, string> RoomLunches { get; set; }
     }

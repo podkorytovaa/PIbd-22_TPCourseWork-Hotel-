@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Формирование постояльца" Height="300" Width="500">
+        Title="Формирование постояльца" Height="300" Width="500" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0*"/>
@@ -19,9 +19,9 @@
             <Label Content="Дата бронирования:" />
             <DatePicker x:Name="DateBookingPicker" SelectedDateFormat="Short"/>
             <Label Content="Выберите номер:" />
-            <ComboBox x:Name="ComboBoxRoom" DisplayMemberPath="Name" SelectedValuePath="ID" Width="300"/>
+            <ComboBox x:Name="ComboBoxRoom" DisplayMemberPath="Number" SelectedValuePath="Id" Width="300"/>
         </StackPanel>
-        <Button x:Name="ButtonSave" Content="Сохранить" HorizontalAlignment="Left" Margin="100,220,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="100"/>
-        <Button x:Name="ButtonCancel" Content="Отмена" HorizontalAlignment="Left" Margin="285,220,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="ButtonSave" Content="Сохранить" HorizontalAlignment="Left" Margin="100,220,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="100" Click="ButtonSave_Click"/>
+        <Button x:Name="ButtonCancel" Content="Отмена" HorizontalAlignment="Left" Margin="285,220,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="100" Click="ButtonCancel_Click"/>
     </Grid>
 </Window>

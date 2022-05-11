@@ -37,7 +37,7 @@ namespace HotelDatebaseImplement.Implements
             return context.Lunches
             .Include(rec => rec.LunchSeminars)
             .ThenInclude(rec => rec.Seminar)
-            .Where(rec => rec.Name.Contains(model.Name))
+            .Where(rec => (rec.HeadwaiterId == model.HeadwaiterId))
             .ToList().Select(CreateModel)
            .ToList();
 
