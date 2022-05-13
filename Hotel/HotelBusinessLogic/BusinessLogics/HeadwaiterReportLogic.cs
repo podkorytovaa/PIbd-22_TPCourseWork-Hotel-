@@ -54,8 +54,12 @@ namespace HotelBusinessLogic.BusinessLogics
                     var model = _lunchStorage.GetElement(new LunchBindingModel { Id = rl.Key });
                     foreach (var seminar in model.LunchSeminars)
                     {
-                        record.Seminars.Add(new Tuple<string>(seminar.Value));
-                        record.LunchName = model.Name;
+                        var sem = new Tuple<string>(seminar.Value);
+                        if (!record.Seminars.Contains(sem))
+                        {
+                            record.Seminars.Add(sem);
+                            record.LunchName = model.Name;
+                        }
                     }
                 }
                 list.Add(record);

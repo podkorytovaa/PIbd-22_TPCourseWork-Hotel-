@@ -14,17 +14,17 @@
             <Label Content="по" FontSize="14" Margin="10,5"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></Label>
             <DatePicker x:Name="DatePickerTo" Height="25" Width="120">
             </DatePicker>
-            <Button Content="Сформировать" Width="100"  Margin="10" ></Button>
-            <Button Content="в PDF" Width="100"  Margin="10" ></Button>
-            <Button Content="На почту" Width="100"  Margin="10"></Button>
+            <Button x:Name="ButtonCreate" Content="Сформировать" Width="100"  Margin="10" Click="ButtonCreate_Click"></Button>
+            <Button x:Name="ButtonPdf" Content="в PDF" Width="100"  Margin="10" Click="ButtonPdf_Click"></Button>
+            <Button x:Name="ButtonMail" Content="На почту" Width="100"  Margin="10" Click="ButtonMail_Click"></Button>
         </StackPanel>
-        <DataGrid x:Name="GuidesGrid" Margin="0,60,0,0"  HorizontalAlignment="Left" AutoGenerateColumns="False" Height="400" VerticalAlignment="Top" Width="980">
+        <DataGrid x:Name="LunchesGrid" Margin="0,60,0,0"  HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="980" Style="{StaticResource datagrid}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Обед" Binding="{Binding Path=LunchName}" Width="250"/>
+                <DataGridTextColumn Header="Обед" Binding="{Binding Path=Name}" Width="250"/>
                 <DataGridTextColumn Header="Блюдо" Binding="{Binding Path=Dish}" Width="150"/>
                 <DataGridTextColumn Header="Напиток" Binding="{Binding Path=Drink}" Width="150"/>
-                <DataGridTextColumn Header="Семинар" Binding="{Binding Path=SeminarName}" Width="215"/>
-                <DataGridTextColumn Header="Номер" Binding="{Binding Path=Number}" Width="215"/>
+                <DataGridTextColumn Header="Семинар" Binding="{Binding Path=Seminar}" Width="215"/>
+                <DataGridTextColumn Header="Номер" Binding="{Binding Path=Room}" Width="215"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

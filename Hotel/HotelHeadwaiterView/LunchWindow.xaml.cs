@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using HotelContracts.BindingModels;
 using HotelContracts.BusinessLogicsContracts;
+using HotelContracts.ViewModels;
 using Unity;
 
 namespace HotelHeadwaiterView
@@ -23,13 +24,15 @@ namespace HotelHeadwaiterView
     public partial class LunchWindow : Window
     {
         private readonly ILunchLogic _logic;
+        private readonly ISeminarLogic _seminarLogic;
         public int Id { set { id = value; } }
         private int? id;
 
-        public LunchWindow(ILunchLogic logic)
+        public LunchWindow(ILunchLogic logic, ISeminarLogic seminarLogic)
         {
             InitializeComponent();
             _logic = logic;
+            _seminarLogic = seminarLogic;
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
@@ -85,6 +88,16 @@ namespace HotelHeadwaiterView
                 {
                     Id = id
                 })[0];
+
+                var listSeminars = lunch.LunchSeminars.ToList();
+                foreach (var seminar in listSeminars)
+                {
+                    SeminarViewModel current = _seminarLogic.Read(new SeminarBindingModel
+                    {
+                        Id = seminar.Key
+                    })[0];
+                    ListBoxSeminarsL.Items.Add(seminar);
+                }
 
                 TextBoxName.Text = lunch.Name;
                 TextBoxDish.Text = lunch.Dish;

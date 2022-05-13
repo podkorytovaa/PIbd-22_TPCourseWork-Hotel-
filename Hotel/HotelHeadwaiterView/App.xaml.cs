@@ -38,6 +38,7 @@ namespace HotelHeadwaiterView
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
+            //mailConfig
             var authorizationWindow = Container.Resolve<SignInWindow>();
             authorizationWindow.ShowDialog();
         }
@@ -46,8 +47,8 @@ namespace HotelHeadwaiterView
         {
             var currentContainer = new UnityContainer();
             currentContainer.RegisterType<IHeadwaiterStorage, HeadwaiterStorage>(new HierarchicalLifetimeManager());
-            //currentContainer.RegisterType<IConferenceStorage, ConferenceStorage>(new HierarchicalLifetimeManager());
-            //currentContainer.RegisterType<ISeminarStorage, SeminarStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IConferenceStorage, ConferenceStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ISeminarStorage, SeminarStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ILunchStorage, LunchStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IRoomStorage, RoomStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IRoomerStorage, RoomerStorage>(new HierarchicalLifetimeManager());
@@ -58,8 +59,8 @@ namespace HotelHeadwaiterView
             currentContainer.RegisterType<ILunchLogic, LunchLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IRoomLogic, RoomLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IRoomerLogic, RoomerLogic>(new HierarchicalLifetimeManager());
-            //currentContainer.RegisterType<IReportLogic, ReportLogic>(new HierarchicalLifetimeManager());
-
+            currentContainer.RegisterType<IHeadwaiterReportLogic, HeadwaiterReportLogic>(new HierarchicalLifetimeManager());
+            //mailLogic
 
             currentContainer.RegisterType<HeadwaiterAbstractSaveToPdf, HeadwaiterSaveToPdf>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<HeadwaiterAbstractSaveToExcel, HeadwaiterSaveToExcel>(new HierarchicalLifetimeManager());
