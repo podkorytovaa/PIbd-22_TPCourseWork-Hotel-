@@ -26,7 +26,7 @@ namespace HotelBusinessLogic.OfficePackage
 			MergeCells(new ExcelMergeParameters
 			{
 				CellFromName = "A1",
-				CellToName = "D1"
+				CellToName = "E1"
 			});
 
 			uint rowIndex = 2;
@@ -52,7 +52,12 @@ namespace HotelBusinessLogic.OfficePackage
 						ColumnName = "C",
 						RowIndex = rowIndex,
 						Text = seminar.Item1,
-						StyleInfo = ExcelStyleInfoType.TextWithBroder
+						StyleInfo = ExcelStyleInfoType.Text
+					});
+					MergeCells(new ExcelMergeParameters
+					{
+						CellFromName = "C" + rowIndex,
+						CellToName = "E" + rowIndex
 					});
 					rowIndex++;
 				}
