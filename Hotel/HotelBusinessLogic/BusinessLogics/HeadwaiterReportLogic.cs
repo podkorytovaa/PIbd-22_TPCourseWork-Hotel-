@@ -68,8 +68,12 @@ namespace HotelBusinessLogic.BusinessLogics
         }
 
         // Получение списка обедов с указанием семинара и номера за определенный период
-        public List<ReportLunchesViewModel> GetLunches(ReportBindingModel model)//
+        public List<ReportLunchesViewModel> GetLunches(ReportBindingModel model, int headwaiterId)//
         {
+            var headwaitersRooms = _roomStorage.GetFilteredList(new RoomBindingModel
+            {
+                HeadwaiterId = headwaiterId
+            });
             var list = new List<ReportLunchesViewModel>();
             var conferences = _conferenceStorage.GetFilteredList(new ConferenceBindingModel
             {
@@ -84,6 +88,12 @@ namespace HotelBusinessLogic.BusinessLogics
                     {
                         Id = cr.Key
                     });
+                    var isH = false;
+                    foreach (var hr in headwaitersRooms)
+                    {
+                        if (hr.Id == room.Id) isH = true;
+                    }
+                    if (!isH) { continue; }
                     foreach (var rl in room.RoomLunches)
                     {
                         var lunch = _lunchStorage.GetElement(new LunchBindingModel
@@ -136,7 +146,7 @@ namespace HotelBusinessLogic.BusinessLogics
         }
 
         // Сохранение  обедов с указанием семинара и номера заказов в файл-Pdf
-        public void SaveLunchesToPdf(ReportBindingModel model)//
+        public void SaveLunchesToPdf(ReportBindingModel model, int headwaiterId)//
         {
             _saveToPdf.CreateDoc(new HeadwaiterPdfInfo
             {
@@ -144,7 +154,7 @@ namespace HotelBusinessLogic.BusinessLogics
                 Title = "Список обедов",
                 DateFrom = model.DateFrom.Value,
                 DateTo = model.DateTo.Value,
-                Lunches = GetLunches(model)
+                Lunches = GetLunches(model, headwaiterId)
             });
         }
     }

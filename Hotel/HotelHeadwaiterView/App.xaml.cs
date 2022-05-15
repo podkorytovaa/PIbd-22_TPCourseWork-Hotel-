@@ -9,6 +9,7 @@ using HotelBusinessLogic.BusinessLogics;
 using HotelContracts.BusinessLogicsContracts;
 using HotelContracts.StoragesContracts;
 using HotelContracts.ViewModels;
+using HotelContracts.BindingModels;
 using HotelDatebaseImplement.Implements;
 using HotelBusinessLogic.OfficePackage;
 using HotelBusinessLogic.OfficePackage.Implements;
@@ -38,7 +39,18 @@ namespace HotelHeadwaiterView
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            //mailConfig
+
+            var mailSender = Container.Resolve<MailLogic>();
+            mailSender.MailConfig(new MailConfigBindingModel
+            {
+                MailLogin = ConfigurationManager.AppSettings["MailLogin"],
+                MailPassword = ConfigurationManager.AppSettings["MailPassword"],
+                SmtpClientHost = ConfigurationManager.AppSettings["SmtpClientHost"],
+                SmtpClientPort = Convert.ToInt32(ConfigurationManager.AppSettings["SmtpClientPort"]),
+                PopHost = ConfigurationManager.AppSettings["PopHost"],
+                PopPort = Convert.ToInt32(ConfigurationManager.AppSettings["PopPort"])
+            });
+
             var authorizationWindow = Container.Resolve<SignInWindow>();
             authorizationWindow.ShowDialog();
         }
@@ -60,7 +72,7 @@ namespace HotelHeadwaiterView
             currentContainer.RegisterType<IRoomLogic, RoomLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IRoomerLogic, RoomerLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<IHeadwaiterReportLogic, HeadwaiterReportLogic>(new HierarchicalLifetimeManager());
-            //mailLogic
+            currentContainer.RegisterType<MailLogic>(new HierarchicalLifetimeManager());
 
             currentContainer.RegisterType<HeadwaiterAbstractSaveToPdf, HeadwaiterSaveToPdf>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<HeadwaiterAbstractSaveToExcel, HeadwaiterSaveToExcel>(new HierarchicalLifetimeManager());

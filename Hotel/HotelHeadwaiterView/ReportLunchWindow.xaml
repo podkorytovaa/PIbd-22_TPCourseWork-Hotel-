@@ -20,11 +20,12 @@
         </StackPanel>
         <DataGrid x:Name="LunchesGrid" Margin="0,60,0,0"  HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="980" Style="{StaticResource datagrid}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Обед" Binding="{Binding Path=Name}" Width="250"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Path=Date}" Width="125"/>
+                <DataGridTextColumn Header="Обед" Binding="{Binding Path=Name}" Width="190"/>
                 <DataGridTextColumn Header="Блюдо" Binding="{Binding Path=Dish}" Width="150"/>
                 <DataGridTextColumn Header="Напиток" Binding="{Binding Path=Drink}" Width="150"/>
                 <DataGridTextColumn Header="Семинар" Binding="{Binding Path=Seminar}" Width="215"/>
-                <DataGridTextColumn Header="Номер" Binding="{Binding Path=Room}" Width="215"/>
+                <DataGridTextColumn Header="Номер" Binding="{Binding Path=Room}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
