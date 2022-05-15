@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Авторизация" Height="300" Width="400">
+        Title="Авторизация" Height="300" Width="400" ResizeMode="NoResize">
     <Grid>
         <StackPanel HorizontalAlignment="Stretch" Height="250" Margin="20">
             <Label Content="Логин:" Margin="0, 30, 0, 0"/>

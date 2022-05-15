@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Формирование номера" Height="450" Width="1000" Loaded="Window_Loaded">
+        Title="Формирование номера" Height="460" Width="980" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="586*"/>
-            <ColumnDefinition Width="277*"/>
+            <ColumnDefinition Width="258*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Margin="20,110,0,110" VerticalAlignment="Center"  HorizontalAlignment="Left" Height="100" Width="200" ScrollViewer.HorizontalScrollBarVisibility="Auto" UseLayoutRounding="False" >
             <Label Content="Номер помещения:"  Margin="0,0,0,0" Height="35"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Формирование постояльца" Height="300" Width="500" Loaded="Window_Loaded">
+        Title="Формирование постояльца" Height="300" Width="510" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0*"/>

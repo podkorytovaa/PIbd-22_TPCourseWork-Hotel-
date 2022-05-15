@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Гостиница 'Принцесса на горошине'" Height="460" Width="760">
+        Title="Гостиница 'Принцесса на горошине'" Height="470" Width="750" ResizeMode="NoResize">
     <Grid>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem x:Name="MenuItemLanches" Header="Обеды" Click="MenuItemLanches_Click"></MenuItem>
@@ -14,7 +14,7 @@
             <MenuItem x:Name="MenuItemRoomers" Header="Постояльцы" Click="MenuItemRoomers_Click"></MenuItem>
             <MenuItem x:Name="MenuItemSeminarsList" Header="Список семинаров" Click="MenuItemSeminarsList_Click"></MenuItem>
             <MenuItem x:Name="MenuItemReport" Header="Отчёт по обедам" Click="MenuItemReport_Click"></MenuItem>
-            <MenuItem x:Name="MenuItemExit" Header="Выход" Click="MenuItemExit_Click" Margin="150,0,0,0"></MenuItem>
+            <MenuItem x:Name="MenuItemExit" Header="Выход" Click="MenuItemExit_Click" Margin="160,0,0,0"></MenuItem>
         </Menu>
         <Image VerticalAlignment="Top" Name="logo" Source="Images/логотип.PNG" Height="411" Margin="0,25,0,0"></Image>
     </Grid>

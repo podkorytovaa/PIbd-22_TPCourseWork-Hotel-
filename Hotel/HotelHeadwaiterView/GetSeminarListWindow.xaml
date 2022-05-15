@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Получение списка семинаров" Height="470" Width="450" Loaded="Window_Loaded">
+        Title="Получение списка семинаров" Height="470" Width="460" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
         <Label Content="Выберите номера:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="33" Width="195"/>
         <ListBox x:Name="ListBoxRooms" DisplayMemberPath="Number" SelectionMode="Multiple" HorizontalAlignment="Left" Height="315" Margin="0,48,-1,0" VerticalAlignment="Top" Width="443" Grid.ColumnSpan="2"></ListBox>

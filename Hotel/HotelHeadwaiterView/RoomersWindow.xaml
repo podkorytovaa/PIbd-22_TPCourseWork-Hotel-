@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Постояльцы" Height="450" Width="800" Loaded="Window_Loaded">
+        Title="Постояльцы" Height="460" Width="815" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
         <DataGrid x:Name="DataGridRoomers" HorizontalAlignment="Left" Height="420" Margin="0,0,0,0" VerticalAlignment="Top" Width="700" Style="{StaticResource datagrid}" >
             <DataGrid.Columns >

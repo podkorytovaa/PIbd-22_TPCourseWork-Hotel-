@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelHeadwaiterView"
         mc:Ignorable="d"
-        Title="Привязка обеда к семинарам" Height="400" Width="400" Loaded="Window_Loaded">
+        Title="Привязка обеда к семинарам" Height="410" Width="400" Loaded="Window_Loaded" ResizeMode="NoResize">
     <Grid>
         <ComboBox x:Name="ComboBoxLunch" DisplayMemberPath="Name" SelectedValuePath="Id" HorizontalAlignment="Left" Margin="20,30,0,0" VerticalAlignment="Top" Width="340" IsReadOnly="True"/>
         <Label Content="Обед:" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top"/>
