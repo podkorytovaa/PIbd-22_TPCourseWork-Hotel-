@@ -108,7 +108,7 @@ namespace HotelBusinessLogic.BusinessLogics
                             });
                             var record = new ReportLunchesViewModel
                             {
-                                Date = conference.DataOf,
+                                Date = conference.DateOf,
                                 Name = lunch.Name,
                                 Dish = lunch.Dish,
                                 Drink = lunch.Drink,

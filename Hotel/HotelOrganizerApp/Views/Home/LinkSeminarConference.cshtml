@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Link Seminar";
+}
+
+<div class="text-center">
+    <h2 class="display-4">Привязка семинара к конференциям</h2>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">Семинар:</div>
+        <div class="col-8">
+            <select id="seminar" name="seminar" class="form-control" asp-items="@(new SelectList(@ViewBag.Seminars,"Id", "SeminarName"))"></select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">Конференции:</div>
+        <div class="col-8">
+            <select id="conference" name="conference" class="form-control"  asp-items="@(new MultiSelectList(@ViewBag.Conferences,"Id", "ConferenceName"))"></select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Привязать" class="btn btn-primary" /></div>
+    </div>
+
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Отмена" class="btn btn-primary" /></div>
+    </div>
+</form>

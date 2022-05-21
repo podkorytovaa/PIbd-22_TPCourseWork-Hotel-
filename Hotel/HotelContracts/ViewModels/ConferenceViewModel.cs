@@ -12,10 +12,7 @@ namespace HotelContracts.ViewModels
         public string Name { get; set; }
 
         [DisplayName("Дата проведения")]
-        public DateTime DataOf { get; set; }
-
-        [DisplayName("Количество номеров")]
-        public int NumberOfRooms { get; set; }
+        public DateTime DateOf { get; set; }
 
         public int OrganizerId { get; set; }
 

@@ -6,13 +6,16 @@ namespace HotelContracts.ViewModels
     {
         public int Id { get; set; }
 
-        [DisplayName("Полное имя участника")]
+        [DisplayName("ФИО участника")]
         public string FullName { get; set; }
 
         [DisplayName("Статус")]
         public string Status { get; set; }
 
         public int SeminarId { get; set; }
+       
+        [DisplayName("Название семинара")]
+        public string SeminarName { get; set; }
 
         public int OrganizerId { get; set; }
     }

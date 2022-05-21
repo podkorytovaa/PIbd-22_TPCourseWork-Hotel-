@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelHeadwaiterView", "HotelHeadwaiterView\HotelHeadwaiterView.csproj", "{5FB890B5-8C98-469E-9374-C8E53412F274}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelHeadwaiterView", "HotelHeadwaiterView\HotelHeadwaiterView.csproj", "{5FB890B5-8C98-469E-9374-C8E53412F274}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBusinessLogic", "HotelBusinessLogic\HotelBusinessLogic.csproj", "{93B3180D-2F2D-40AB-A791-64949A52C49E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBusinessLogic", "HotelBusinessLogic\HotelBusinessLogic.csproj", "{93B3180D-2F2D-40AB-A791-64949A52C49E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelContracts", "HotelContracts\HotelContracts.csproj", "{B134E61C-10B2-4B91-A896-38DE05C669C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelContracts", "HotelContracts\HotelContracts.csproj", "{B134E61C-10B2-4B91-A896-38DE05C669C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelDatebaseImplement", "HotelDatebaseImplement\HotelDatebaseImplement.csproj", "{D0D8B6BF-5D3D-4E8A-9654-DD2032627713}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelDatebaseImplement", "HotelDatebaseImplement\HotelDatebaseImplement.csproj", "{D0D8B6BF-5D3D-4E8A-9654-DD2032627713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelRestApi", "HotelRestApi\HotelRestApi.csproj", "{BD6B875E-D07A-4B79-9618-8EC308D4183F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelOrganizerApp", "HotelOrganizerApp\HotelOrganizerApp.csproj", "{DF4A8083-ACC7-44AA-9A7D-2A4EBDE26241}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{D0D8B6BF-5D3D-4E8A-9654-DD2032627713}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0D8B6BF-5D3D-4E8A-9654-DD2032627713}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0D8B6BF-5D3D-4E8A-9654-DD2032627713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD6B875E-D07A-4B79-9618-8EC308D4183F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD6B875E-D07A-4B79-9618-8EC308D4183F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD6B875E-D07A-4B79-9618-8EC308D4183F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD6B875E-D07A-4B79-9618-8EC308D4183F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF4A8083-ACC7-44AA-9A7D-2A4EBDE26241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF4A8083-ACC7-44AA-9A7D-2A4EBDE26241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF4A8083-ACC7-44AA-9A7D-2A4EBDE26241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF4A8083-ACC7-44AA-9A7D-2A4EBDE26241}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

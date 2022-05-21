@@ -22,7 +22,7 @@ namespace HotelBusinessLogic.OfficePackage
 
             CreateRow(new PdfRowParameters
             {
-                Texts = new List<string> { "Дата проведения", "Конференция", "Количество номеров", "Семинар", "Обед" },
+                Texts = new List<string> { "Дата проведения", "Конференция", "Семинар", "Обед" },
                 Style = "NormalTitle",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
@@ -31,7 +31,7 @@ namespace HotelBusinessLogic.OfficePackage
             {
                 CreateRow(new PdfRowParameters
                 {
-                    Texts = new List<string> { conference.DateOf.ToShortDateString(), conference.Name, conference.NumberOfRooms.ToString(), conference.Seminar, conference.Lunch },
+                    Texts = new List<string> { conference.DateOf.ToShortDateString(), conference.Name, conference.Seminar, conference.Lunch },
                     Style = "Normal",
                     ParagraphAlignment = PdfParagraphAlignmentType.Left
                 });

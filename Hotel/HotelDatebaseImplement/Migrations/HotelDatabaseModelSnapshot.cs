@@ -26,15 +26,12 @@ namespace HotelDatebaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DataOf")
+                    b.Property<DateTime>("DateOf")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfRooms")
-                        .HasColumnType("int");
 
                     b.Property<int>("OrganizerId")
                         .HasColumnType("int");

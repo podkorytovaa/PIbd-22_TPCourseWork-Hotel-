@@ -10,7 +10,6 @@ namespace HotelContracts.ViewModels
     {
         public DateTime DateOf { get; set; }
         public string Name { get; set; }
-        public int NumberOfRooms { get; set; }
         public string Seminar { get; set; }
         public string Lunch { get; set; }
     }

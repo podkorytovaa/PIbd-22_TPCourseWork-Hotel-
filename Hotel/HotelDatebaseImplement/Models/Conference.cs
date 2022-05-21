@@ -13,10 +13,7 @@ namespace HotelDatebaseImplement.Models
         public string Name { get; set; }
 
         [Required]
-        public DateTime DataOf { get; set; }
-
-        [Required]
-        public int NumberOfRooms { get; set; }
+        public DateTime DateOf { get; set; }
 
         public int OrganizerId { get; set; }
 

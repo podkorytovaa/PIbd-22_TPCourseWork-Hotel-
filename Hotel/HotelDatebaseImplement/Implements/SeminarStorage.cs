@@ -5,6 +5,7 @@ using HotelDatebaseImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelDatebaseImplement.Implements
 {
@@ -27,7 +28,8 @@ namespace HotelDatebaseImplement.Implements
 
             using var context = new HotelDatabase();
             return context.Seminars
-                .Where(rec => rec.Id == model.Id)
+                .Where(rec => rec.OrganizerId == model.OrganizerId)
+                .ToList()
                 .Select(CreateModel)
                 .ToList();
         }

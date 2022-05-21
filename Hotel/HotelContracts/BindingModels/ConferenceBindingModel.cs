@@ -9,9 +9,7 @@ namespace HotelContracts.BindingModels
 
         public string Name { get; set; }
 
-        public DateTime DataOf { get; set; }
-
-        public int NumberOfRooms { get; set; }
+        public DateTime DateOf { get; set; }
 
         public DateTime? DateFrom { get; set; }
 

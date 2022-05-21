@@ -1,0 +1,51 @@
+﻿@using HotelContracts.ViewModels
+
+@model List<ConferenceViewModel>
+
+@{
+    ViewData["Title"] = "Conferences";
+}
+
+<div class="text-center">
+    <h2 class="display-4">Конференции</h2>
+
+    <p>
+        <a asp-action="Conference">Создать</a>
+
+        <a asp-action="Conference">Обновить</a>
+
+        <a asp-action="Conference">Удалить</a>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Номер
+                </th>
+                <th>
+                    Название коференции
+                </th>
+                <th>
+                    Дата проведения
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateOf)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

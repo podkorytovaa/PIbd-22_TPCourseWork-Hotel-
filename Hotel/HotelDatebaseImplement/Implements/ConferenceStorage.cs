@@ -37,7 +37,7 @@ namespace HotelDatebaseImplement.Implements
                 .ThenInclude(rec => rec.Seminar)
                 .Include(rec => rec.ConferenceRooms)
                 .ThenInclude(rec => rec.Room)
-                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DataOf.Date == model.DataOf.Date) || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DataOf.Date >= model.DateFrom.Value.Date && rec.DataOf.Date <= model.DateTo.Value.Date) || (rec.OrganizerId == model.OrganizerId))
+                .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateOf.Date == model.DateOf.Date) || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateOf.Date >= model.DateFrom.Value.Date && rec.DateOf.Date <= model.DateTo.Value.Date) || (rec.OrganizerId == model.OrganizerId))
                 .ToList()
                 .Select(CreateModel)
                 .ToList();
@@ -69,8 +69,7 @@ namespace HotelDatebaseImplement.Implements
                 Conference conference = new Conference
                 {
                     Name = model.Name,
-                    DataOf = model.DataOf,
-                    NumberOfRooms = model.NumberOfRooms,
+                    DateOf = model.DateOf,
                     OrganizerId = model.OrganizerId
                 };
                 context.Conferences.Add(conference);
@@ -125,56 +124,58 @@ namespace HotelDatebaseImplement.Implements
         private Conference CreateModel(ConferenceBindingModel model, Conference conference, HotelDatabase context)
         {
             conference.Name = model.Name;
-            conference.DataOf = model.DataOf;
-            conference.NumberOfRooms = model.NumberOfRooms;
+            conference.DateOf = model.DateOf;
             conference.OrganizerId = model.OrganizerId;
 
-            if (model.Id.HasValue)
+            if (model.ConferenceSeminars != null)
             {
-                var conferenceSeminars = context.ConferenceSeminars.Where(rec => rec.ConferenceId == model.Id.Value).ToList();
-                context.ConferenceSeminars.RemoveRange(conferenceSeminars.Where(rec => !model.ConferenceSeminars.ContainsKey(rec.SeminarId)).ToList());
-
-                var conferenceRooms = context.ConferenceRooms.Where(rec => rec.ConferenceId == model.Id.Value).ToList();
-                context.ConferenceRooms.RemoveRange(conferenceRooms.Where(rec => !model.ConferenceRooms.ContainsKey(rec.RoomId)).ToList());
-
-                context.SaveChanges();
-                // убираем повторы
-                foreach (var conferenceSeminar in conferenceSeminars)
+                if (model.Id.HasValue)
                 {
-                    if (model.ConferenceSeminars.ContainsKey(conferenceSeminar.SeminarId))
+                    var conferenceSeminars = context.ConferenceSeminars.Where(rec => rec.ConferenceId == model.Id.Value).ToList();
+                    context.ConferenceSeminars.RemoveRange(conferenceSeminars.Where(rec => !model.ConferenceSeminars.ContainsKey(rec.SeminarId)).ToList());
+
+                    var conferenceRooms = context.ConferenceRooms.Where(rec => rec.ConferenceId == model.Id.Value).ToList();
+                    context.ConferenceRooms.RemoveRange(conferenceRooms.Where(rec => !model.ConferenceRooms.ContainsKey(rec.RoomId)).ToList());
+
+                    context.SaveChanges();
+                    // убираем повторы
+                    foreach (var conferenceSeminar in conferenceSeminars)
                     {
-                        model.ConferenceSeminars.Remove(conferenceSeminar.SeminarId);
+                        if (model.ConferenceSeminars.ContainsKey(conferenceSeminar.SeminarId))
+                        {
+                            model.ConferenceSeminars.Remove(conferenceSeminar.SeminarId);
+                        }
                     }
-                }
-                foreach (var conferenceRoom in conferenceRooms)
-                {
-                    if (model.ConferenceRooms.ContainsKey(conferenceRoom.RoomId))
+                    foreach (var conferenceRoom in conferenceRooms)
                     {
-                        model.ConferenceRooms.Remove(conferenceRoom.RoomId);
+                        if (model.ConferenceRooms.ContainsKey(conferenceRoom.RoomId))
+                        {
+                            model.ConferenceRooms.Remove(conferenceRoom.RoomId);
+                        }
                     }
+                    context.SaveChanges();
                 }
-                context.SaveChanges();
-            }
 
-            // добавляем новые
-            foreach (var cs in model.ConferenceSeminars)
-            {
-                context.ConferenceSeminars.Add(new ConferenceSeminar
+                // добавляем новые
+                foreach (var cs in model.ConferenceSeminars)
                 {
-                    ConferenceId = conference.Id,
-                    SeminarId = cs.Key
-                });
-                context.SaveChanges();
+                    context.ConferenceSeminars.Add(new ConferenceSeminar
+                    {
+                        ConferenceId = conference.Id,
+                        SeminarId = cs.Key
+                    });
+                    context.SaveChanges();
+                }
+                foreach (var cr in model.ConferenceRooms)
+                {
+                    context.ConferenceRooms.Add(new ConferenceRoom
+                    {
+                        ConferenceId = conference.Id,
+                        RoomId = cr.Key
+                    });
+                    context.SaveChanges();
+                }
             }
-            foreach (var cr in model.ConferenceRooms)
-            {
-                context.ConferenceRooms.Add(new ConferenceRoom
-                {
-                    ConferenceId = conference.Id,
-                    RoomId = cr.Key
-                });
-                context.SaveChanges();
-            } 
             return conference;
         }
 
@@ -184,8 +185,7 @@ namespace HotelDatebaseImplement.Implements
             {
                 Id = conference.Id,
                 Name = conference.Name,
-                DataOf = conference.DataOf,
-                NumberOfRooms = conference.NumberOfRooms,
+                DateOf = conference.DateOf,
                 OrganizerId = conference.OrganizerId,
                 ConferenceSeminars = conference.ConferenceSeminars
                     .ToDictionary(recCS => recCS.SeminarId, recCS => (recCS.Seminar?.Name)),

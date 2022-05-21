@@ -85,9 +85,8 @@ namespace HotelBusinessLogic.BusinessLogics
 
                                 list.Add(new ReportConferencesViewModel
                                 {
-                                    DateOf = conference.DataOf,
+                                    DateOf = conference.DateOf,
                                     Name = conference.Name,
-                                    NumberOfRooms = conference.NumberOfRooms,
                                     Seminar = seminar.Name,
                                     Lunch = lunch.Name
                                 });

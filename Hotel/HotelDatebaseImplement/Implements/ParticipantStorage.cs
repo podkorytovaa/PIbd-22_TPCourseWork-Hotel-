@@ -5,6 +5,7 @@ using HotelDatebaseImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelDatebaseImplement.Implements
 {
@@ -14,6 +15,9 @@ namespace HotelDatebaseImplement.Implements
         {
             using var context = new HotelDatabase();
             return context.Participants
+                .Include(rec => rec.Seminar)
+                //.Include(rec => rec.Organizer)
+                .ToList()
                 .Select(CreateModel)
                 .ToList();
         }
@@ -27,7 +31,10 @@ namespace HotelDatebaseImplement.Implements
 
             using var context = new HotelDatabase();
             return context.Participants
-                .Where(rec => rec.Id == model.Id)
+                .Include(rec => rec.Seminar)
+                //.Include(rec => rec.Organizer)
+                .Where(rec => rec.OrganizerId == model.OrganizerId)
+                .ToList()
                 .Select(CreateModel)
                 .ToList();
         }
@@ -83,7 +90,7 @@ namespace HotelDatebaseImplement.Implements
         {
             participant.FullName = model.FullName;
             participant.Status = model.Status;
-            participant.SeminarId = model.SeminarId; //
+            participant.SeminarId = model.SeminarId; 
             participant.OrganizerId = model.OrganizerId;
             return participant;
         }
@@ -95,7 +102,8 @@ namespace HotelDatebaseImplement.Implements
                 Id = participant.Id,
                 FullName = participant.FullName,
                 Status = participant.Status,
-                SeminarId = participant.SeminarId, //
+                SeminarId = participant.SeminarId,
+                SeminarName = participant.Seminar.Name,
                 OrganizerId = participant.OrganizerId
             };
         }
