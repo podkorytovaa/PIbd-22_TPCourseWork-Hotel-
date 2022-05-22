@@ -147,9 +147,8 @@ namespace HotelDatebaseImplement.Implements
                 {
                     var lunchSeminars = context.LunchSeminars.Where(rec =>
                    rec.LunchId == model.Id.Value).ToList();
-                    // удалили те, которых нет в модели
-                    context.LunchSeminars.RemoveRange(lunchSeminars.Where(rec =>
-                   !model.LunchSeminars.ContainsKey(rec.SeminarId)).ToList());
+                    //удалили все
+                    context.LunchSeminars.RemoveRange(lunchSeminars);
                     context.SaveChanges();
                 }
                 // добавили новые

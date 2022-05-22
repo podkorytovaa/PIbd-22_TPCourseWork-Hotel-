@@ -126,6 +126,19 @@ namespace HotelDatebaseImplement.Implements
            model.Id);
             if (element != null)
             {
+                //
+                //отвязывание обедов
+                var roomLunches = context.RoomLunches.Where(rec => rec.RoomId == model.Id.Value).ToList();
+                context.RoomLunches.RemoveRange(roomLunches.ToList());
+                context.SaveChanges();
+                //удаление постояльцев
+                var roomRoomers = context.Roomers.Where(rec => rec.RoomId == model.Id.Value);
+                foreach(var room in roomRoomers)
+                {
+                    room.Room = null;
+                }
+                context.SaveChanges();
+                //
                 context.Rooms.Remove(element);
                 context.SaveChanges();
             }

@@ -25,9 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Images\логотип.PNG">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Images\логотип.PNG" />
   </ItemGroup>
 
 </Project>

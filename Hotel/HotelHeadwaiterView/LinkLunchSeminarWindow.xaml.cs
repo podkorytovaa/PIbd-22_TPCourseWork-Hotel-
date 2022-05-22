@@ -47,8 +47,6 @@ namespace HotelHeadwaiterView
             {
                 ListBoxSeminars.Items.Add(seminar);
             }
-
-            //TO:DO чтоб выбирались в листбоксе те семинары, которые уже привязаны
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
