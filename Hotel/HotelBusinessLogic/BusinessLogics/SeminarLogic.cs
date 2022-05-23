@@ -10,10 +10,12 @@ namespace HotelBusinessLogic.BusinessLogics
     public class SeminarLogic : ISeminarLogic
     {
         private readonly ISeminarStorage _seminarStorage;
+        private readonly IConferenceStorage _conferenceStorage;
 
-        public SeminarLogic(ISeminarStorage seminarStorage)
+        public SeminarLogic(ISeminarStorage seminarStorage, IConferenceStorage conferenceStorage)
         {
             _seminarStorage = seminarStorage;
+            _conferenceStorage = conferenceStorage;
         }
 
         public List<SeminarViewModel> Read(SeminarBindingModel model)
@@ -54,6 +56,35 @@ namespace HotelBusinessLogic.BusinessLogics
                 throw new Exception("Семинар не найден");
             }
             _seminarStorage.Delete(model);
+        }
+
+        public void LinkConferences(LinkSeminarToConferencesBindingModel model)
+        {
+            var seminar = _seminarStorage.GetElement(new SeminarBindingModel { Id = model.SeminarId });
+            if (seminar == null)
+            {
+                throw new Exception("Семинар не найден");
+            }
+            foreach (var conferenceId in model.ConferenceId)
+            {
+                var conference = _conferenceStorage.GetElement(new ConferenceBindingModel { Id = conferenceId });
+                if (conference == null)
+                {
+                    throw new Exception("Конференция не найдена");
+                }
+                if (!seminar.SeminarConferences.ContainsKey(conferenceId))
+                {
+                    seminar.SeminarConferences.Add(conferenceId, conference.Name);
+                }
+            }
+            _seminarStorage.Update(new SeminarBindingModel
+            {
+                Id = seminar.Id,
+                OrganizerId = seminar.OrganizerId,
+                Name = seminar.Name,
+                SubjectArea = seminar.SubjectArea,
+                SeminarConferences = seminar.SeminarConferences
+            });
         }
     }
 }

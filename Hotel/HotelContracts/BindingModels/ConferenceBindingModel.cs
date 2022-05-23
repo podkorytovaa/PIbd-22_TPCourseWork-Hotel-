@@ -19,6 +19,6 @@ namespace HotelContracts.BindingModels
 
         public Dictionary<int, string> ConferenceRooms { get; set; }
 
-        public Dictionary<int, string> ConferenceSeminars { get; set; }
+        //public Dictionary<int, string> ConferenceSeminars { get; set; }
     }
 }

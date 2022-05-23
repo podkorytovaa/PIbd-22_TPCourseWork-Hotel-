@@ -7,45 +7,58 @@
 }
 
 <div class="text-center">
-    <h2 class="display-4">Конференции</h2>
+    <h3 class="display-4">Конференции</h3>
+</div>
 
-    <p>
-        <a asp-action="Conference">Создать</a>
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h2 class="display-4">Авторизируйтесь</h2>
+            return;
+        }
 
-        <a asp-action="Conference">Обновить</a>
+        <p>
+            <a class="btn btn-success" asp-action="ConferenceCreate">Создать конференцию</a>
+        </p>
 
-        <a asp-action="Conference">Удалить</a>
-    </p>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Номер
-                </th>
-                <th>
-                    Название коференции
-                </th>
-                <th>
-                    Дата проведения
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateOf)
-                    </td>
+                    <th>
+                        Номер
+                    </th>
+                    <th>
+                        Название коференции
+                    </th>
+                    <th>
+                        Дата проведения
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOf)
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-action="ConferenceUpdate" asp-route-conferenceId="@item.Id" asp-route-conferenceName="@item.Name" 
+                            asp-route-conferenceDateOf="@item.DateOf">Изменить</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="ConferenceDelete" asp-route-conferenceId="@item.Id">Удалить</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>

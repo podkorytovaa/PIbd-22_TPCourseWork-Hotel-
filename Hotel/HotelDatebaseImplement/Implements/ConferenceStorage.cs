@@ -127,54 +127,31 @@ namespace HotelDatebaseImplement.Implements
             conference.DateOf = model.DateOf;
             conference.OrganizerId = model.OrganizerId;
 
-            if (model.ConferenceSeminars != null)
+            if (model.Id.HasValue)
             {
-                if (model.Id.HasValue)
+                var conferenceRooms = context.ConferenceRooms.Where(rec => rec.ConferenceId == model.Id.Value).ToList();
+                context.ConferenceRooms.RemoveRange(conferenceRooms/*.Where(rec => !model.ConferenceRooms.ContainsKey(rec.RoomId)).ToList()*/);
+                context.SaveChanges();
+
+                // убираем повторы 
+                foreach (var conferenceRoom in conferenceRooms)
                 {
-                    var conferenceSeminars = context.ConferenceSeminars.Where(rec => rec.ConferenceId == model.Id.Value).ToList();
-                    context.ConferenceSeminars.RemoveRange(conferenceSeminars.Where(rec => !model.ConferenceSeminars.ContainsKey(rec.SeminarId)).ToList());
-
-                    var conferenceRooms = context.ConferenceRooms.Where(rec => rec.ConferenceId == model.Id.Value).ToList();
-                    context.ConferenceRooms.RemoveRange(conferenceRooms.Where(rec => !model.ConferenceRooms.ContainsKey(rec.RoomId)).ToList());
-
-                    context.SaveChanges();
-                    // убираем повторы
-                    foreach (var conferenceSeminar in conferenceSeminars)
+                    if (model.ConferenceRooms.ContainsKey(conferenceRoom.RoomId))
                     {
-                        if (model.ConferenceSeminars.ContainsKey(conferenceSeminar.SeminarId))
-                        {
-                            model.ConferenceSeminars.Remove(conferenceSeminar.SeminarId);
-                        }
+                        model.ConferenceRooms.Remove(conferenceRoom.RoomId);
                     }
-                    foreach (var conferenceRoom in conferenceRooms)
-                    {
-                        if (model.ConferenceRooms.ContainsKey(conferenceRoom.RoomId))
-                        {
-                            model.ConferenceRooms.Remove(conferenceRoom.RoomId);
-                        }
-                    }
-                    context.SaveChanges();
                 }
-
-                // добавляем новые
-                foreach (var cs in model.ConferenceSeminars)
+                context.SaveChanges();
+            }
+            // добавляем новые
+            foreach (var cr in model.ConferenceRooms)
+            {
+                context.ConferenceRooms.Add(new ConferenceRoom
                 {
-                    context.ConferenceSeminars.Add(new ConferenceSeminar
-                    {
-                        ConferenceId = conference.Id,
-                        SeminarId = cs.Key
-                    });
-                    context.SaveChanges();
-                }
-                foreach (var cr in model.ConferenceRooms)
-                {
-                    context.ConferenceRooms.Add(new ConferenceRoom
-                    {
-                        ConferenceId = conference.Id,
-                        RoomId = cr.Key
-                    });
-                    context.SaveChanges();
-                }
+                    ConferenceId = conference.Id,
+                    RoomId = cr.Key
+                });
+                context.SaveChanges();
             }
             return conference;
         }
@@ -187,8 +164,8 @@ namespace HotelDatebaseImplement.Implements
                 Name = conference.Name,
                 DateOf = conference.DateOf,
                 OrganizerId = conference.OrganizerId,
-                ConferenceSeminars = conference.ConferenceSeminars
-                    .ToDictionary(recCS => recCS.SeminarId, recCS => (recCS.Seminar?.Name)),
+                /*ConferenceSeminars = conference.ConferenceSeminars
+                    .ToDictionary(recCS => recCS.SeminarId, recCS => (recCS.Seminar?.Name)),*/
                 ConferenceRooms = conference.ConferenceRooms
                     .ToDictionary(recCR => recCR.RoomId, recCR => (recCR.Room?.Number))
             };

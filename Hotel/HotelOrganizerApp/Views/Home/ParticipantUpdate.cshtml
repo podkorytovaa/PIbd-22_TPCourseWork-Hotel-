@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Participant Update";
+}
+
+<div class="text-center">
+    <h2 class="display-4">Изменение участника семинара</h2>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">ФИО:</div>
+        <div class="col-8"><input type="text" name="participantFullName" id="participantFullName" value="@ViewBag.Participant.FullName" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Статус:</div>
+        <div class="col-8"><input type="text" name="participantStatus" id="participantStatus" value="@ViewBag.Participant.Status" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Семинар:</div>
+        <div class="col-8">
+            <select id="seminarId" name="seminarId" class="form-control" asp-items="@(new SelectList(@ViewBag.Seminars, "Id", "Name"))"></select>   
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Сохранить" class="btn btn-success" /></div>
+    </div>
+</form>

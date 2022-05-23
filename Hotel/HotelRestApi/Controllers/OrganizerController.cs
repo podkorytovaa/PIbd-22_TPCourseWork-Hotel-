@@ -3,23 +3,24 @@ using HotelContracts.BusinessLogicsContracts;
 using HotelContracts.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace HotelRestApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class OrganizerController : ControllerBase
     {
-        private readonly IOrganizerLogic _logic;
+        private readonly IOrganizerLogic _organizerLogic;
 
-        public OrganizerController(IOrganizerLogic logic)
+        public OrganizerController(IOrganizerLogic organizerLogic)
         {
-            _logic = logic;
+            _organizerLogic = organizerLogic;
         }
 
         [HttpGet]
         public OrganizerViewModel Login(string login, string password)
         {
-            var list = _logic.Read(new OrganizerBindingModel
+            var list = _organizerLogic.Read(new OrganizerBindingModel
             {
                 Login = login,
                 Password = password
@@ -28,9 +29,9 @@ namespace HotelRestApi.Controllers
         }
 
         [HttpPost]
-        public void Register(OrganizerBindingModel model) => _logic.CreateOrUpdate(model);
+        public void Register(OrganizerBindingModel model) => _organizerLogic.CreateOrUpdate(model);
 
         [HttpPost]
-        public void UpdateData(OrganizerBindingModel model) => _logic.CreateOrUpdate(model);
+        public void UpdateData(OrganizerBindingModel model) => _organizerLogic.CreateOrUpdate(model);
     }
 }

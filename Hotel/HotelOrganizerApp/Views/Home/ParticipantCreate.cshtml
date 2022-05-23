@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Participant Create";
+}
+
+<div class="text-center">
+    <h3 class="display-4">Создание участника семинара</h3>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">ФИО:</div>
+        <div class="col-8"><input type="text" name="participantFullName" id="participantFullName" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Статус:</div>
+        <div class="col-8"><input type="text" name="participantStatus" id="participantStatus" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Семинар:</div>
+        <div class="col-8">
+            <select id="seminarId" name="seminarId" class="form-control" asp-items="@(new SelectList(@ViewBag.Seminars, "Id", "Name"))"></select>   
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn btn-success" /></div>
+    </div>
+</form>

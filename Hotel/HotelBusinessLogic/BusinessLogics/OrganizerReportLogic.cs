@@ -68,7 +68,7 @@ namespace HotelBusinessLogic.BusinessLogics
 
             var lunches = _lunchStorage.GetFullList();
 
-            foreach (var conference in conferences)
+            /*foreach (var conference in conferences)
             {
                 foreach (var cs in conference.ConferenceSeminars)
                 {
@@ -94,7 +94,7 @@ namespace HotelBusinessLogic.BusinessLogics
                         }
                     }
                 }
-            }
+            }*/
             return list;
         }
 

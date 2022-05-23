@@ -11,5 +11,7 @@ namespace HotelContracts.BusinessLogicsContracts
         void CreateOrUpdate(SeminarBindingModel model);
 
         void Delete(SeminarBindingModel model);
+
+        void LinkConferences(LinkSeminarToConferencesBindingModel model);
     }
 }

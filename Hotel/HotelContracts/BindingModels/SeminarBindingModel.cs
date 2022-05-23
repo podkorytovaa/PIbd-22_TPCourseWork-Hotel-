@@ -11,5 +11,7 @@ namespace HotelContracts.BindingModels
         public string SubjectArea { get; set; }
 
         public int OrganizerId { get; set; }
+
+        public Dictionary<int, string> SeminarConferences { get; set; }
     }
 }

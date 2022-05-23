@@ -15,6 +15,9 @@ namespace HotelDatebaseImplement.Implements
         {
             using var context = new HotelDatabase();
             return context.Seminars
+                .Include(rec => rec.ConferenceSeminars)
+                .ThenInclude(rec => rec.Conference)
+                .ToList()
                 .Select(CreateModel)
                 .ToList();
         }
@@ -28,7 +31,9 @@ namespace HotelDatebaseImplement.Implements
 
             using var context = new HotelDatabase();
             return context.Seminars
-                .Where(rec => rec.OrganizerId == model.OrganizerId)
+                .Include(rec => rec.ConferenceSeminars)
+                .ThenInclude(rec => rec.Conference)
+                .Where(rec => (rec.Name.Contains(model.Name)) || rec.OrganizerId == model.OrganizerId)
                 .ToList()
                 .Select(CreateModel)
                 .ToList();
@@ -42,27 +47,57 @@ namespace HotelDatebaseImplement.Implements
             }
 
             using var context = new HotelDatabase();
-            var seminar = context.Seminars.FirstOrDefault(rec => rec.Id == model.Id || rec.Name == model.Name);
+            var seminar = context.Seminars
+                .Include(rec => rec.ConferenceSeminars)
+                .ThenInclude(rec => rec.Conference)
+                .FirstOrDefault(rec => rec.Id == model.Id || rec.Name == model.Name);
             return seminar != null ? CreateModel(seminar) : null;
         }
 
         public void Insert(SeminarBindingModel model)
         {
             using var context = new HotelDatabase();
-            context.Seminars.Add(CreateModel(model, new Seminar()));
-            context.SaveChanges();
+            using var transaction = context.Database.BeginTransaction();
+            try
+            {
+                Seminar seminar = new Seminar
+                {
+                    Name = model.Name,
+                    SubjectArea = model.SubjectArea,
+                    OrganizerId = model.OrganizerId
+                };
+                context.Seminars.Add(seminar);
+                context.SaveChanges();
+                CreateModel(model, seminar, context);
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
 
         public void Update(SeminarBindingModel model)
         {
             using var context = new HotelDatabase();
-            var seminar = context.Seminars.FirstOrDefault(rec => rec.Id == model.Id);
-            if (seminar == null)
+            using var transaction = context.Database.BeginTransaction();
+            try
             {
-                throw new Exception("Семинар не найден");
+                var seminar = context.Seminars.FirstOrDefault(rec => rec.Id == model.Id);
+                if (seminar == null)
+                {
+                    throw new Exception("Семинар не найден");
+                }
+                CreateModel(model, seminar, context);
+                context.SaveChanges();
+                transaction.Commit();
             }
-            CreateModel(model, seminar);
-            context.SaveChanges();
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
 
         public void Delete(SeminarBindingModel model)
@@ -80,11 +115,28 @@ namespace HotelDatebaseImplement.Implements
             }
         }
 
-        private Seminar CreateModel(SeminarBindingModel model, Seminar seminar)
+        private Seminar CreateModel(SeminarBindingModel model, Seminar seminar, HotelDatabase context)
         {
             seminar.Name = model.Name;
             seminar.SubjectArea = model.SubjectArea;
             seminar.OrganizerId = model.OrganizerId;
+
+            if (model.Id.HasValue)
+            {
+                var semiarConferences = context.ConferenceSeminars.Where(rec => rec.SeminarId == model.Id.Value).ToList();
+                context.ConferenceSeminars.RemoveRange(semiarConferences/*.Where(rec => !model.ConferenceSeminars.ContainsKey(rec.ConferenceId)).ToList()*/);
+                context.SaveChanges();
+            }
+            // добавляем новые
+            foreach (var sc in model.SeminarConferences)
+            {
+                context.ConferenceSeminars.Add(new ConferenceSeminar
+                {
+                    SeminarId = seminar.Id,
+                    ConferenceId = sc.Key
+                });
+                context.SaveChanges();
+            }
             return seminar;
         }
 
@@ -95,7 +147,9 @@ namespace HotelDatebaseImplement.Implements
                 Id = seminar.Id,
                 Name = seminar.Name,
                 SubjectArea = seminar.SubjectArea,
-                OrganizerId = seminar.OrganizerId
+                OrganizerId = seminar.OrganizerId,
+                SeminarConferences = seminar.ConferenceSeminars
+                    .ToDictionary(recSC => recSC.ConferenceId, recSC => (recSC.Conference?.Name))
             };
         }
     }

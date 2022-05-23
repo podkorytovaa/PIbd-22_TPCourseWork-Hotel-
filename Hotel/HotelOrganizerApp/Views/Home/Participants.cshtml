@@ -8,42 +8,63 @@
 
 <div class="text-center">
     <h2 class="display-4">Участники семинаров</h2>
+</div>
 
-    <p>
-        <a asp-action="Participant"> Создать </a>
-        <a asp-action="Participant"> Обновить </a>
-        <a asp-action="Participant"> Удалить </a>
-    </p>
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h2 class="display-4">Авторизируйтесь</h2>
+            return;
+        }
+        
+        <p>
+            <a class="btn btn-success" asp-action="ParticipantCreate">Создать участника</a>
+        </p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    ФИО
-                </th>
-                <th>
-                    Статус
-                </th>
-                <th>
-                    Название семинара
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FullName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Status)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.SeminarName)
-                    </td>
+                    <th>
+                        Номер
+                    </th>
+                    <th>
+                        ФИО
+                    </th>
+                    <th>
+                        Статус
+                    </th>
+                    <th>
+                        Название семинара
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SeminarName)
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-action="ParticipantUpdate" asp-route-participantId="@item.Id" asp-route-participantFullName="@item.FullName" 
+                            asp-route-participantStatus="@item.Status" asp-route-seminarId="@item.SeminarId">Изменить</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="ParticipantDelete" asp-route-participantId="@item.Id">Удалить</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>

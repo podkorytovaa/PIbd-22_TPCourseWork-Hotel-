@@ -29,7 +29,7 @@ namespace HotelBusinessLogic.BusinessLogics
             return _conferenceStorage.GetFilteredList(model);
         }
 
-        /*public void CreateOrUpdate(ConferenceBindingModel model)
+        public void CreateOrUpdate(ConferenceBindingModel model)
         {
             var element = _conferenceStorage.GetElement(new ConferenceBindingModel { Name = model.Name });
             if (element != null && element.Id != model.Id)
@@ -43,37 +43,6 @@ namespace HotelBusinessLogic.BusinessLogics
             else
             {
                 _conferenceStorage.Insert(model);
-            }
-        }*/
-
-        public void CreateConference(CreateConferenceBindingModel model)
-        {
-            /*var element = _conferenceStorage.GetElement(new ConferenceBindingModel { Name = model.Name });
-            if (element != null && element.Id != model.Id)
-            {
-                throw new Exception("Уже есть конференция с таким названием");
-            }
-            if (!model.Id.HasValue)
-            {*/
-            _conferenceStorage.Insert(new ConferenceBindingModel
-                {
-                    OrganizerId = model.OrganizerId,
-                    Name = model.Name,
-                    DateOf = model.DateOf
-                });
-           // }
-        }
-
-        public void Update(ConferenceBindingModel model)
-        {
-            var element = _conferenceStorage.GetElement(new ConferenceBindingModel { Name = model.Name });
-            if (element != null && element.Id != model.Id)
-            {
-                throw new Exception("Уже есть конференция с таким названием");
-            }
-            if (model.Id.HasValue)
-            {
-                _conferenceStorage.Update(model);
             }
         }
 

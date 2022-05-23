@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Seminar Create";
+}
+
+<div class="text-center">
+    <h3 class="display-4">Создание семинара</h3>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">Название семинара:</div>
+        <div class="col-8"><input type="text" name="seminarName" id="seminarName" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Предметная область:</div>
+        <div class="col-8"><input type="text" name="seminarSubjectArea" id="seminarSubjectArea" /></div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn btn-success" /></div>
+    </div>
+</form>

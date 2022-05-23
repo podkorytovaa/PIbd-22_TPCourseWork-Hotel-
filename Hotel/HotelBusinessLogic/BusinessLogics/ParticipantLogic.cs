@@ -31,11 +31,11 @@ namespace HotelBusinessLogic.BusinessLogics
 
         public void CreateOrUpdate(ParticipantBindingModel model)
         {
-            var element = _participantStorage.GetElement(new ParticipantBindingModel { FullName = model.FullName });
+            /*var element = _participantStorage.GetElement(new ParticipantBindingModel { FullName = model.FullName });
             if (element != null && element.Id != model.Id)
             {
                 throw new Exception("Уже есть участник с таким именем");
-            }
+            }*/
             if (model.Id.HasValue)
             {
                 _participantStorage.Update(model);

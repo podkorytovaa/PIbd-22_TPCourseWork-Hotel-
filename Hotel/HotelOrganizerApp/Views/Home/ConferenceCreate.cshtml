@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Conference Create";
+}
+
+<div class="text-center">
+    <h3 class="display-4">Создание конференции</h3>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">Название конференции:</div>
+        <div class="col-8"><input type="text" name="conferenceName" id="conferenceName" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Дата проведения:</div>
+        <div class="col-8"><input type="datetime-local" name="conferenceDateOf" id="conferenceDateOf" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Номера под конференцию:</div>
+        <div class="col-8">
+            <select id="roomsId" name="roomsId" multiple="multiple" class="form-control" asp-items="@(new SelectList(@ViewBag.Rooms,"Id", "Number"))"></select>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn btn-success" /></div>
+    </div>
+</form>

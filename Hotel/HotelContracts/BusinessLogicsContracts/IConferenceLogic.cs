@@ -8,11 +8,7 @@ namespace HotelContracts.BusinessLogicsContracts
     {
         List<ConferenceViewModel> Read(ConferenceBindingModel model);
 
-        //void CreateOrUpdate(CreateConferenceBindingModel model);
-
-        void CreateConference(CreateConferenceBindingModel model);
-
-        void Update(ConferenceBindingModel model);
+        void CreateOrUpdate(ConferenceBindingModel model);
 
         void Delete(ConferenceBindingModel model);
     }

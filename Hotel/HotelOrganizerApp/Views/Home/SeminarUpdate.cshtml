@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Seminar Update";
+}
+
+<div class="text-center">
+    <h3 class="display-4">Изменение семинара</h3>
+</div>
+
+<form method="post">
+    <div class="row">
+        <div class="col-4">Название семинара:</div>
+        <div class="col-8"><input type="text" name="seminarName" id="seminarName" value="@ViewBag.Seminar.Name" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Предметная область:</div>
+        <div class="col-8"><input type="text" name="seminarSubjectArea" id="seminarSubjectArea" value="@ViewBag.Seminar.SubjectArea" /></div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Привязанные конференции:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Seminar.SeminarConferences)
+            {
+                <tr>
+                    <td>
+                        @item.Value
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Сохранить" class="btn btn-success" /></div>
+    </div>
+</form>

@@ -16,8 +16,6 @@ namespace HotelDatebaseImplement.Implements
             using var context = new HotelDatabase();
             return context.Participants
                 .Include(rec => rec.Seminar)
-                //.Include(rec => rec.Organizer)
-                .ToList()
                 .Select(CreateModel)
                 .ToList();
         }
@@ -32,8 +30,7 @@ namespace HotelDatebaseImplement.Implements
             using var context = new HotelDatabase();
             return context.Participants
                 .Include(rec => rec.Seminar)
-                //.Include(rec => rec.Organizer)
-                .Where(rec => rec.OrganizerId == model.OrganizerId)
+                .Where(rec => (rec.Id == model.Id) || rec.OrganizerId == model.OrganizerId)
                 .ToList()
                 .Select(CreateModel)
                 .ToList();
@@ -47,7 +44,7 @@ namespace HotelDatebaseImplement.Implements
             }
 
             using var context = new HotelDatabase();
-            var participant = context.Participants.FirstOrDefault(rec => rec.Id == model.Id);
+            var participant = context.Participants.Include(rec => rec.Seminar).FirstOrDefault(rec => rec.Id == model.Id);
             return participant != null ? CreateModel(participant) : null;
         }
 
@@ -74,7 +71,7 @@ namespace HotelDatebaseImplement.Implements
         {
             using var context = new HotelDatabase();
             Participant participant = context.Participants.FirstOrDefault(rec => rec.Id == model.Id);
-            if (participant == null)
+            if (participant != null)
             {
                 context.Participants.Remove(participant);
                 context.SaveChanges();
@@ -84,7 +81,6 @@ namespace HotelDatebaseImplement.Implements
                 throw new Exception("Участник не найден");
             }
         }
-
 
         private Participant CreateModel(ParticipantBindingModel model, Participant participant)
         {

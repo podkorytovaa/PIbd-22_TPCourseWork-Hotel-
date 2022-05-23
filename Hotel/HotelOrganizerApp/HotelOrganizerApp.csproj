@@ -20,4 +20,8 @@
     <Resource Include="Images\логотип.PNG" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Report\" />
+  </ItemGroup>
+
 </Project>
