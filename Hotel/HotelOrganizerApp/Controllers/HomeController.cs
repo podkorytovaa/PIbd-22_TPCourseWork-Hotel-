@@ -115,7 +115,6 @@ namespace HotelOrganizerApp.Controllers
             throw new Exception("Введите логин, пароль, ФИО и номер телефона");
         }
 
-        //[HttpGet]
         public IActionResult Conferences()
         {
             if (Program.Organizer == null)
@@ -160,6 +159,16 @@ namespace HotelOrganizerApp.Controllers
         {
             ViewBag.Conference = APIOrganizer.GetRequest<ConferenceViewModel>($"api/conference/getconference?conferenceId={conferenceId}");
             ViewBag.Rooms = APIOrganizer.GetRequest<List<RoomViewModel>>("api/conference/getroomlist");
+            var Seminars = APIOrganizer.GetRequest<List<SeminarViewModel>>("api/seminar/getseminarlist");
+            var conferenceSeminars = new List<SeminarViewModel>();
+            foreach (var seminar in Seminars)
+            {
+                if (seminar.SeminarConferences.ContainsKey(conferenceId))
+                {
+                    conferenceSeminars.Add(seminar);
+                }
+            }
+            ViewBag.ConferenceSeminars = conferenceSeminars; 
             return View();
         }
 
@@ -174,6 +183,10 @@ namespace HotelOrganizerApp.Controllers
                     return;
                 }
                 List<RoomViewModel> rooms = new List<RoomViewModel>();
+                foreach (var roomId in roomsId)
+                {
+                    rooms.Add(APIOrganizer.GetRequest<RoomViewModel>($"api/conference/getroom?roomId={roomId}"));
+                }
                 APIOrganizer.PostRequest("api/conference/createorupdateconference", new ConferenceBindingModel
                 {
                     Id = conference.Id,
@@ -196,7 +209,6 @@ namespace HotelOrganizerApp.Controllers
             Response.Redirect("Conferences");
         }
 
-        //[HttpGet]
         public IActionResult Seminars()
         {
             if (Program.Organizer == null)
@@ -269,7 +281,6 @@ namespace HotelOrganizerApp.Controllers
             Response.Redirect("Seminars");
         }
 
-        //[HttpGet]
         public IActionResult Participants()
         {
             if (Program.Organizer == null)
@@ -307,7 +318,7 @@ namespace HotelOrganizerApp.Controllers
         [HttpGet]
         public IActionResult ParticipantUpdate(int participantId)
         {
-            ViewBag.Seminars = APIOrganizer.GetRequest<List<SeminarViewModel>>($"api/seminar/getseminarlist");
+            ViewBag.Seminars = APIOrganizer.GetRequest<List<SeminarViewModel>>("api/seminar/getseminarlist");
             ViewBag.Participant = APIOrganizer.GetRequest<ParticipantViewModel>($"api/participant/getparticipant?participantId={participantId}");
             return View();
         }
@@ -352,8 +363,24 @@ namespace HotelOrganizerApp.Controllers
                 return Redirect("~/Home/Enter");
             }
             ViewBag.Seminars = APIOrganizer.GetRequest<List<SeminarViewModel>>("api/seminar/getseminarlist");
-            ViewBag.Conferences = APIOrganizer.GetRequest<List<ConferenceViewModel>>("api/conference/getconferencelist");
+            ViewBag.Conferences = APIOrganizer.GetRequest<List<ConferenceViewModel>>($"api/conference/getorganizerconferences?organizerId={Program.Organizer.Id}");
             return View();
+        }
+
+        [HttpPost]
+        public void LinkSeminarConferences(int seminarId, List<int> conferencesId)
+        {
+            if (seminarId != 0 && conferencesId != null)
+            {
+                APIOrganizer.PostRequest("api/seminar/LinkSeminarToConferences", new LinkSeminarToConferencesBindingModel
+                {
+                    SeminarId = seminarId,
+                    ConferenceId = conferencesId
+                });
+                Response.Redirect("Seminars");
+                return;
+            }
+            throw new Exception("Выберите семинар и конференции");
         }
     }
 }

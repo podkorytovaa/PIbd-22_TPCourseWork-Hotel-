@@ -34,11 +34,15 @@ namespace HotelRestApi
             services.AddTransient<IConferenceStorage, ConferenceStorage>();
             services.AddTransient<ISeminarStorage, SeminarStorage>();
             services.AddTransient<IParticipantStorage, ParticipantStorage>();
+            services.AddTransient<ILunchStorage, LunchStorage>();
+            services.AddTransient<IRoomStorage, RoomStorage>();
 
             services.AddTransient<IOrganizerLogic, OrganizerLogic>();
             services.AddTransient<IConferenceLogic, ConferenceLogic>();
             services.AddTransient<ISeminarLogic, SeminarLogic>();
             services.AddTransient<IParticipantLogic, ParticipantLogic>();
+            services.AddTransient<ILunchLogic, LunchLogic>();
+            services.AddTransient<IRoomLogic, RoomLogic>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

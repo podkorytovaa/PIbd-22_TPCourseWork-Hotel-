@@ -72,10 +72,7 @@ namespace HotelBusinessLogic.BusinessLogics
                 {
                     throw new Exception("Конференция не найдена");
                 }
-                if (!seminar.SeminarConferences.ContainsKey(conferenceId))
-                {
-                    seminar.SeminarConferences.Add(conferenceId, conference.Name);
-                }
+                seminar.SeminarConferences.Add(conferenceId, conference.Name);
             }
             _seminarStorage.Update(new SeminarBindingModel
             {
