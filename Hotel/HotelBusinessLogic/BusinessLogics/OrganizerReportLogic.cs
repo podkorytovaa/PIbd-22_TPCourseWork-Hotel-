@@ -32,6 +32,7 @@ namespace HotelBusinessLogic.BusinessLogics
             _saveToPdf = saveToPdf;
         }
 
+        // список обедов по конференциям
         public List<ReportConferenceLunchesViewModel> GetConferenceLunches(List<ConferenceViewModel> conferences)
         {
             var list = new List<ReportConferenceLunchesViewModel>();
@@ -48,8 +49,12 @@ namespace HotelBusinessLogic.BusinessLogics
                     var model = _roomStorage.GetElement(new RoomBindingModel { Id = room.Key });
                     foreach (var lunch in model.RoomLunches)
                     {
-                        record.Lunches.Add(new Tuple<string>(lunch.Value));
-                        record.RoomNumber = model.Number;
+                        var dinner = new Tuple<string>(lunch.Value);
+                        if (!record.Lunches.Contains(dinner))
+                        {
+                            record.Lunches.Add(dinner);
+                            record.RoomNumber = model.Number;
+                        }
                     }
                 }
                 list.Add(record);
@@ -57,18 +62,38 @@ namespace HotelBusinessLogic.BusinessLogics
             return list;
         }
 
-        public List<ReportConferencesViewModel> GetConferences(ReportBindingModel model)
+        // отчет по конференциям за выбранный период
+        public List<ReportConferencesViewModel> GetConferences(ReportConferenceBindingModel model)
         {
             var list = new List<ReportConferencesViewModel>();
             var conferences = _conferenceStorage.GetFilteredList(new ConferenceBindingModel
             {
                 DateFrom = model.DateFrom,
-                DateTo = model.DateTo
+                DateTo = model.DateTo,
+                OrganizerId = model.OrganizerId
             });
 
-            var lunches = _lunchStorage.GetFullList();
+            foreach (var conference in conferences)
+            {
+                var record = new ReportConferencesViewModel
+                {
+                    ConferenceName = conference.Name,
+                    DateOf = conference.DateOf,
+                    SeminarLunches = new List<(SeminarViewModel, List<LunchViewModel>)>()
+                };
+                var seminars = _seminarStorage.GetFullList().Where(rec => rec.SeminarConferences.Keys.ToList().Contains(conference.Id)).ToList();
+                foreach (var seminar in seminars)
+                {
+                    var lunches = _lunchStorage.GetFullList().Where(rec => rec.LunchSeminars.Keys.ToList().Contains(seminar.Id)).ToList();
+                    record.SeminarLunches.Add((seminar, lunches));
+                }
+                list.Add(record);
+            }
+            return list;
 
-            /*foreach (var conference in conferences)
+            /*
+            var lunches = _lunchStorage.GetFullList();
+            foreach (var conference in conferences)
             {
                 foreach (var cs in conference.ConferenceSeminars)
                 {
@@ -94,8 +119,8 @@ namespace HotelBusinessLogic.BusinessLogics
                         }
                     }
                 }
-            }*/
-            return list;
+            }
+            return list;*/
         }
 
         public void SaveConferenceLunchesToWord(ReportConferenceBindingModel model)
@@ -118,12 +143,12 @@ namespace HotelBusinessLogic.BusinessLogics
             });
         }
 
-        public void SaveConferencesToPdf(ReportBindingModel model)
+        public void SaveConferencesToPdf(ReportConferenceBindingModel model)
         {
             _saveToPdf.CreateDoc(new OrganizerPdfInfo
             {
                 FileName = model.FileName,
-                Title = "Список семинаров и обедов по выбранным конференциям",
+                Title = "Сведения о семинарах и обедах по конференциям",
                 DateFrom = model.DateFrom.Value,
                 DateTo = model.DateTo.Value,
                 Conferences = GetConferences(model)

@@ -9,8 +9,9 @@ namespace HotelContracts.ViewModels
     public class ReportConferencesViewModel
     {
         public DateTime DateOf { get; set; }
-        public string Name { get; set; }
-        public string Seminar { get; set; }
-        public string Lunch { get; set; }
+
+        public string ConferenceName { get; set; }
+
+        public List<(SeminarViewModel, List<LunchViewModel>)> SeminarLunches { get; set; }
     }
 }

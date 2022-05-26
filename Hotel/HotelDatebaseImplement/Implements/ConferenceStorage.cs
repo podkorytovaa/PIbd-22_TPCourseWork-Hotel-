@@ -164,8 +164,6 @@ namespace HotelDatebaseImplement.Implements
                 Name = conference.Name,
                 DateOf = conference.DateOf,
                 OrganizerId = conference.OrganizerId,
-                /*ConferenceSeminars = conference.ConferenceSeminars
-                    .ToDictionary(recCS => recCS.SeminarId, recCS => (recCS.Seminar?.Name)),*/
                 ConferenceRooms = conference.ConferenceRooms
                     .ToDictionary(recCR => recCR.RoomId, recCR => (recCR.Room?.Number))
             };

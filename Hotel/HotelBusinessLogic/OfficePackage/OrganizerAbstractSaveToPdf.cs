@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using HotelBusinessLogic.OfficePackage.HelperEnums;
 using HotelBusinessLogic.OfficePackage.HelperModels;
 
@@ -18,25 +20,48 @@ namespace HotelBusinessLogic.OfficePackage
 
             CreateParagraph(new PdfParagraph { Text = $"с { info.DateFrom.ToShortDateString() } по { info.DateTo.ToShortDateString() }", Style = "Normal" });
 
-            CreateTable(new List<string> { "3cm", "6cm", "3cm", "6cm", "6cm"});
+            CreateTable(new List<string> { "3cm", "6cm", "4cm", "4cm"});
 
             CreateRow(new PdfRowParameters
             {
-                Texts = new List<string> { "Дата проведения", "Конференция", "Семинар", "Обед" },
+                Texts = new List<string> { "Дата проведения", "Конференция", "Семинары", "Обеды" },
                 Style = "NormalTitle",
                 ParagraphAlignment = PdfParagraphAlignmentType.Center
             });
-
             foreach (var conference in info.Conferences)
             {
-                CreateRow(new PdfRowParameters
+                for (int i = 0; i < conference.SeminarLunches.Count; i++)
                 {
-                    Texts = new List<string> { conference.DateOf.ToShortDateString(), conference.Name, conference.Seminar, conference.Lunch },
-                    Style = "Normal",
-                    ParagraphAlignment = PdfParagraphAlignmentType.Left
-                });
-            }
+                    if (i == 0)
+                    {
 
+                        CreateRow(new PdfRowParameters
+                        {
+                            Texts = new List<string> { conference.DateOf.ToShortDateString(),
+                                conference.ConferenceName,
+                                conference.SeminarLunches[i].Item1.Name,
+                                string.Join(", ", conference.SeminarLunches[i].Item2.Select(lunch => lunch.Name).ToList()
+                            )},
+                            Style = "Normal",
+                            ParagraphAlignment = PdfParagraphAlignmentType.Left
+                        });
+                    }
+                    else
+                    {
+                        CreateRow(new PdfRowParameters
+                        {
+
+                            Texts = new List<string> { String.Empty, 
+                                String.Empty,
+                                conference.SeminarLunches[i].Item1.Name,
+                                string.Join(", ", conference.SeminarLunches[i].Item2.Select(lunch => lunch.Name).ToList()
+                            )},
+                            Style = "Normal",
+                            ParagraphAlignment = PdfParagraphAlignmentType.Left
+                        });
+                    }
+                }
+            }
             SavePdf(info);
         }
 

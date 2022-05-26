@@ -1,6 +1,8 @@
-﻿using HotelContracts.BindingModels;
+﻿using HotelBusinessLogic.Mail;
+using HotelContracts.BindingModels;
 using HotelContracts.ViewModels;
 using HotelOrganizerApp.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,9 +17,15 @@ namespace HotelOrganizerApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IWebHostEnvironment _environment;
+
+        private readonly MailKitWorker _mailKitWorker;
+
+        public HomeController(ILogger<HomeController> logger, IWebHostEnvironment environment, MailKitWorker mailKitWorker)
         {
             _logger = logger;
+            _environment = environment;
+            _mailKitWorker = mailKitWorker;
         }
 
         public IActionResult Index()
@@ -381,6 +389,101 @@ namespace HotelOrganizerApp.Controllers
                 return;
             }
             throw new Exception("Выберите семинар и конференции");
+        }
+
+        public IActionResult LunchList()
+        {
+            if (Program.Organizer == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            ViewBag.Conferences = APIOrganizer.GetRequest<List<ConferenceViewModel>>($"api/conference/getorganizerconferences?organizerId={Program.Organizer.Id}");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateConferencesLunchesReportToWord(List<int> conferencesId)
+        {
+            if (conferencesId != null)
+            {
+                var model = new ReportConferenceBindingModel
+                {
+                    Conferences = new List<ConferenceViewModel>(),
+                    Lunches = new List<LunchViewModel>()
+                };
+                foreach (var conferenceId in conferencesId)
+                {
+                    model.Conferences.Add(APIOrganizer.GetRequest<ConferenceViewModel>($"api/conference/getconference?conferenceId={conferenceId}"));
+                }
+                model.FileName = @"..\HotelOrganizerApp\wwwroot\report\ConferencesLunchesReport.doc";
+                APIOrganizer.PostRequest("api/report/createreporttoword", model);
+                var fileName = "ConferencesLunchesReport.doc";
+                var filePath = _environment.WebRootPath + @"\report\" + fileName;
+                return PhysicalFile(filePath, "application/doc", fileName);
+            }
+            throw new Exception("Выберите хотя бы одну конференцию");
+        }
+
+        [HttpPost]
+        public IActionResult CreateConferencesLunchesReportToExcel(List<int> conferencesId)
+        {
+            if (conferencesId != null)
+            {
+                var model = new ReportConferenceBindingModel
+                {
+                    Conferences = new List<ConferenceViewModel>(),
+                    Lunches = new List<LunchViewModel>()
+                };
+                foreach (var conferenceId in conferencesId)
+                {
+                    model.Conferences.Add(APIOrganizer.GetRequest<ConferenceViewModel>($"api/conference/getconference?conferenceId={conferenceId}"));
+                }
+                model.FileName = @"..\HotelOrganizerApp\wwwroot\report\ConferencesLunchesReport.xls";
+                APIOrganizer.PostRequest("api/report/CreateReportToExcel", model);
+                var fileName = "ConferencesLunchesReport.xls";
+                var filePath = _environment.WebRootPath + @"\report\" + fileName;
+                return PhysicalFile(filePath, "application/xls", fileName);
+            }
+            throw new Exception("Выберите хотя бы одну конференцию");
+        }
+
+
+        public IActionResult Report()
+        {
+            if (Program.Organizer == null)
+            {
+                return Redirect("~/Home/Enter");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateConferencesReportToPDF(DateTime dateFrom, DateTime dateTo)
+        {
+            ViewBag.Period = "C " + dateFrom.ToLongDateString() + " по " + dateTo.ToLongDateString();
+            ViewBag.Report = APIOrganizer.GetRequest<List<ReportConferencesViewModel>>($"api/report/getconferencesreport?dateFrom={dateFrom.ToLongDateString()}&dateTo={dateTo.ToLongDateString()}");
+            return View("Report");
+        }
+
+        [HttpPost]
+        public IActionResult SendByEmail(DateTime dateFrom, DateTime dateTo)
+        {
+            var model = new ReportConferenceBindingModel
+            {
+                DateFrom = dateFrom,
+                DateTo = dateTo
+            };
+            model.FileName = @"..\HotelOrganizerApp\wwwroot\report\ConferencesReport.pdf";
+            APIOrganizer.PostRequest("api/report/CreateReportToPdf", model);
+            _mailKitWorker.MailSendAsync(new MailSendInfoBindingModel
+            {
+                MailAddress = Program.Organizer.Login,
+                Subject = "Гостиница \"Принцесса на горошине\"",
+                Text = "Отчет по конференциям с " + dateFrom.ToShortDateString() + " по " + dateTo.ToShortDateString() +
+                "\nОрганизатор - " + Program.Organizer.FullName,
+                FileName = model.FileName,
+            });
+            return View("Report");
         }
     }
 }

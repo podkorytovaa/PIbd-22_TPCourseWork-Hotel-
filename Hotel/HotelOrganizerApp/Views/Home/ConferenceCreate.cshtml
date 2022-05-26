@@ -7,23 +7,27 @@
 </div>
 
 <form method="post">
+    <br />
     <div class="row">
         <div class="col-4">Название конференции:</div>
         <div class="col-8"><input type="text" name="conferenceName" id="conferenceName" /></div>
     </div>
+    <br />
     <div class="row">
         <div class="col-4">Дата проведения:</div>
         <div class="col-8"><input type="datetime-local" name="conferenceDateOf" id="conferenceDateOf" /></div>
     </div>
+    <br />
     <div class="row">
         <div class="col-4">Номера под конференцию:</div>
         <div class="col-8">
             <select id="roomsId" name="roomsId" multiple="multiple" class="form-control" asp-items="@(new SelectList(@ViewBag.Rooms,"Id", "Number"))"></select>
         </div>
-    </div>    
+    </div>
+    <br />
     <div class="row">
-        <div class="col-8"></div>
-        <div class="col-4">
+        <div class="col-4"></div>
+        <div class="col-8">
             <input type="submit" value="Создать" class="btn btn-success" />
             <a class="btn btn-primary" asp-action="Conferences">Отмена</a>
         </div>

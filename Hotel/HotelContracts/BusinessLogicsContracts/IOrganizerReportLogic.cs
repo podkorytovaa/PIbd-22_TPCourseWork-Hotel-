@@ -8,12 +8,12 @@ namespace HotelContracts.BusinessLogicsContracts
     {
         List<ReportConferenceLunchesViewModel> GetConferenceLunches(List<ConferenceViewModel> conferences);
 
-        List<ReportConferencesViewModel> GetConferences(ReportBindingModel model);
+        List<ReportConferencesViewModel> GetConferences(ReportConferenceBindingModel model);
 
         void SaveConferenceLunchesToWord(ReportConferenceBindingModel model);
 
         void SaveConferenceLunchesToExcel(ReportConferenceBindingModel model);
 
-        void SaveConferencesToPdf(ReportBindingModel model);
+        void SaveConferencesToPdf(ReportConferenceBindingModel model);
     }
 }

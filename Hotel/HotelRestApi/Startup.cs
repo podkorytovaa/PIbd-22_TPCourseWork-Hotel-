@@ -1,4 +1,6 @@
 using HotelBusinessLogic.BusinessLogics;
+using HotelBusinessLogic.OfficePackage;
+using HotelBusinessLogic.OfficePackage.Implements;
 using HotelContracts.BusinessLogicsContracts;
 using HotelContracts.StoragesContracts;
 using HotelDatebaseImplement.Implements;
@@ -43,8 +45,12 @@ namespace HotelRestApi
             services.AddTransient<IParticipantLogic, ParticipantLogic>();
             services.AddTransient<ILunchLogic, LunchLogic>();
             services.AddTransient<IRoomLogic, RoomLogic>();
+            services.AddTransient<IOrganizerReportLogic, OrganizerReportLogic>();
+            services.AddTransient<OrganizerAbstractSaveToWord, OrganizerSaveToWord>();
+            services.AddTransient<OrganizerAbstractSaveToExcel, OrganizerSaveToExcel>();
+            services.AddTransient<OrganizerAbstractSaveToPdf, OrganizerSaveToPdf>();
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelRestApi", Version = "v1" });

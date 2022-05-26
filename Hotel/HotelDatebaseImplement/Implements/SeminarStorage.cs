@@ -106,6 +106,17 @@ namespace HotelDatebaseImplement.Implements
             Seminar seminar = context.Seminars.FirstOrDefault(rec => rec.Id == model.Id);
             if (seminar != null)
             {
+                //отвязывание конференций
+                var seminarConference = context.ConferenceSeminars.Where(rec => rec.SeminarId == model.Id.Value).ToList();
+                context.ConferenceSeminars.RemoveRange(seminarConference.ToList());
+                context.SaveChanges();
+                //удаление постояльцев
+                var seminarParticipant = context.Participants.Where(rec => rec.SeminarId == model.Id.Value);
+                foreach (var sem in seminarParticipant)
+                {
+                    sem.Seminar = null;
+                }
+                context.SaveChanges();
                 context.Seminars.Remove(seminar);
                 context.SaveChanges();
             }

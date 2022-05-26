@@ -7,23 +7,24 @@
 </div>
 
 <form method="post">
+    <br />
     <div class="row">
         <div class="col-4">Семинар:</div>
         <div class="col-8">
             <select id="seminarId" name="seminarId" class="form-control" asp-items="@(new SelectList(@ViewBag.Seminars, "Id", "Name"))"></select>
         </div>
     </div>
-
+    <br />
     <div class="row">
         <div class="col-4">Конференции:</div>
         <div class="col-8">
             <select id="conferencesId" name="conferencesId" multiple="multiple" class="form-control"  asp-items="@(new SelectList(@ViewBag.Conferences, "Id", "Name"))"></select>
         </div>
     </div>
-
+    <br />
     <div class="row">
-        <div class="col-8"></div>
-        <div class="col-4">
+        <div class="col-4"></div>
+        <div class="col-8">
             <input type="submit" value="Привязать" class="btn btn-success" />
             <a class="btn btn-primary" asp-action="Seminars">Отмена</a>
         </div>

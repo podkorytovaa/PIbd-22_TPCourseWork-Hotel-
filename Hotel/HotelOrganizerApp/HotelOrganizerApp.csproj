@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HotelBusinessLogic\HotelBusinessLogic.csproj" />
     <ProjectReference Include="..\HotelContracts\HotelContracts.csproj" />
   </ItemGroup>
 
@@ -21,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Report\" />
+    <Folder Include="wwwroot\report\" />
   </ItemGroup>
 
 </Project>
