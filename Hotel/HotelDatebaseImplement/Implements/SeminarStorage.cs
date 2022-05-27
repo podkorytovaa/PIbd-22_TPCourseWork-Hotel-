@@ -135,7 +135,7 @@ namespace HotelDatebaseImplement.Implements
             if (model.Id.HasValue)
             {
                 var semiarConferences = context.ConferenceSeminars.Where(rec => rec.SeminarId == model.Id.Value).ToList();
-                context.ConferenceSeminars.RemoveRange(semiarConferences/*.Where(rec => !model.ConferenceSeminars.ContainsKey(rec.ConferenceId)).ToList()*/);
+                context.ConferenceSeminars.RemoveRange(semiarConferences);
                 context.SaveChanges();
             }
             // добавляем новые

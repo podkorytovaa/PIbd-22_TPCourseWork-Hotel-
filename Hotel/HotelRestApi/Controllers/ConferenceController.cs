@@ -40,6 +40,5 @@ namespace HotelRestApi.Controllers
 
         [HttpGet]
         public RoomViewModel GetRoom(int roomId) => _roomLogic.Read(new RoomBindingModel { Id = roomId })?[0];
-
     }
 }

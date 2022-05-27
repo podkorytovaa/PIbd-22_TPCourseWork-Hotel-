@@ -130,7 +130,7 @@ namespace HotelDatebaseImplement.Implements
             if (model.Id.HasValue)
             {
                 var conferenceRooms = context.ConferenceRooms.Where(rec => rec.ConferenceId == model.Id.Value).ToList();
-                context.ConferenceRooms.RemoveRange(conferenceRooms/*.Where(rec => !model.ConferenceRooms.ContainsKey(rec.RoomId)).ToList()*/);
+                context.ConferenceRooms.RemoveRange(conferenceRooms);
                 context.SaveChanges();
 
                 // убираем повторы 

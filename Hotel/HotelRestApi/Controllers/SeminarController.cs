@@ -35,6 +35,5 @@ namespace HotelRestApi.Controllers
 
         [HttpPost]
         public void LinkSeminarToConferences(LinkSeminarToConferencesBindingModel model) => _seminarLogic.LinkConferences(model);
-
     }
 }

@@ -90,37 +90,6 @@ namespace HotelBusinessLogic.BusinessLogics
                 list.Add(record);
             }
             return list;
-
-            /*
-            var lunches = _lunchStorage.GetFullList();
-            foreach (var conference in conferences)
-            {
-                foreach (var cs in conference.ConferenceSeminars)
-                {
-                    foreach (var lunch in lunches)
-                    {
-                        foreach (var ls in lunch.LunchSeminars)
-                        {
-                            if (ls.Key == cs.Key)
-                            {
-                                var seminar = _seminarStorage.GetElement(new SeminarBindingModel
-                                {
-                                    Id = ls.Key
-                                });
-
-                                list.Add(new ReportConferencesViewModel
-                                {
-                                    DateOf = conference.DateOf,
-                                    Name = conference.Name,
-                                    Seminar = seminar.Name,
-                                    Lunch = lunch.Name
-                                });
-                            }
-                        }
-                    }
-                }
-            }
-            return list;*/
         }
 
         public void SaveConferenceLunchesToWord(ReportConferenceBindingModel model)
