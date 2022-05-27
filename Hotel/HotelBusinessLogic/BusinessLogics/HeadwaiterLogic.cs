@@ -53,6 +53,10 @@ namespace HotelBusinessLogic.BusinessLogics
             {
                 throw new Exception($"Пароль длиной от {_passwordMinLength} до { _passwordMaxLength } должен состоять из цифр, букв и небуквенных символов");
             }
+            if (!Regex.IsMatch(model.PhoneNumber, @"^((\+7|7|8)+([0-9]){10})$"))
+            {
+                throw new Exception("Номер телефона введен неверно");
+            }
             if (model.Id.HasValue)
             {
                 _headwaiterStorage.Update(model);

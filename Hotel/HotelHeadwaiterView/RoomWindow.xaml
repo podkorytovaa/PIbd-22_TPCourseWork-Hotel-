@@ -11,7 +11,7 @@
             <ColumnDefinition Width="586*"/>
             <ColumnDefinition Width="258*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Margin="20,110,0,110" VerticalAlignment="Center"  HorizontalAlignment="Left" Height="100" Width="200" ScrollViewer.HorizontalScrollBarVisibility="Auto" UseLayoutRounding="False" >
+        <StackPanel Margin="20,110,0,110" VerticalAlignment="Center"  HorizontalAlignment="Left" Height="120" Width="200" ScrollViewer.HorizontalScrollBarVisibility="Auto" UseLayoutRounding="False" >
             <Label Content="Номер помещения:"  Margin="0,0,0,0" Height="35"/>
             <TextBox x:Name="TextBoxNumber"/>
             <Label Content="Этаж:" Margin="0,0,0,0" Height="35"/>
